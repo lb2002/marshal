@@ -26,4 +26,4 @@ jobs:
         shell: bash
         run: |
           node scripts/build-plugins.mjs
-          git diff --exit-code -- plugins hooks
+          git diff --exit-code -- plugins hooks .agents

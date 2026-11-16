@@ -9,7 +9,7 @@
 import { createServer } from "node:http";
 import { randomBytes, randomInt, timingSafeEqual } from "node:crypto";
 import { homedir } from "node:os";
-import { WebSocketServer, WebSocket } from "ws";
+import { WebSocketServer, WebSocket } from "./vendor/ws/wrapper.mjs";
 import { normalizeHook, normalizeStatus } from "./events.js";
 import { COLLISION_WINDOW_MS, createPipeline } from "./pipeline.js";
 import { demoPermission } from "./demo-paths.js";

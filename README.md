@@ -39,7 +39,7 @@ Next time, `npx marshal-agents start` starts the bridge again. `npx marshal-agen
 
 ### Or use your agent's plugin system
 
-One plugin folder ([`plugins/marshal/`](plugins/marshal/)) serves three agents from this repository's marketplace. Use either the plugin or `npx marshal-agents` for an agent, not both.
+[`plugins/marshal/`](plugins/marshal/) is the Claude Code plugin; [`plugins/marshal-agents/`](plugins/marshal-agents/) is the same bridge for Muse and Codex, which read [`.agents/plugins/marketplace.json`](.agents/plugins/marketplace.json). Use either the plugin or `npx marshal-agents` for an agent, not both.
 
 | Agent | Install | Status |
 |---|---|---|
@@ -55,7 +55,7 @@ One plugin folder ([`plugins/marshal/`](plugins/marshal/)) serves three agents f
 |---|---|
 | [`bridge/`](bridge/) | The PC bridge (Node.js, TypeScript, one dependency: `ws`). CLI, hooks for four agents, risk classifier, impact analysis, halt, pairing. Full reference in [`bridge/README.md`](bridge/README.md). |
 | [`quest/`](quest/) | The headset app (Unity 6000.6, OpenXR, Meta XR SDK 209: hand tracking, passthrough, spatial anchors, MR Utility Kit). |
-| [`plugins/marshal/`](plugins/marshal/) | The plugin for Claude Code, Muse and Codex, generated from the bridge by [`scripts/build-plugins.mjs`](scripts/build-plugins.mjs). |
+| [`plugins/`](plugins/) | The Claude Code plugin (`marshal`) and the Muse/Codex plugin (`marshal-agents`), generated from the bridge by [`scripts/build-plugins.mjs`](scripts/build-plugins.mjs). |
 | [`demo/`](demo/) | The anonymised recorded session behind the tour and the demo. |
 | [`docs/`](docs/) | Setup, design renders, research notes on the hook formats of the four agents. |
 

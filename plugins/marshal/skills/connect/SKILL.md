@@ -13,12 +13,18 @@ The plugin root is two folders above this skill's base directory (`<base>/../..`
 its absolute path with forward slashes.
 
 1. **Node.js.** Run `node --version`. Marshal needs 22.12 or newer. If it is older or missing, tell the user and stop.
-2. **Dependency.** The plugin bundles its one dependency (`ws`) in `ROOT/node_modules`; nothing needs to be installed.
+2. **Dependency.** The plugin bundles its one dependency (`ws`) in `ROOT/dist/vendor`; nothing needs to be installed.
 3. **No double hooks.** If `~/.claude/settings.json` contains hook commands with `cli.js" hook --source claude`, Marshal
    was also set up with `lotse connect` earlier, and every event would reach the bridge twice. Tell the user to run
    `node "<that cli.js>" disconnect --tool claude` once, or to disable this plugin instead. Do not edit the file yourself.
 4. **Start the bridge in the user's own terminal**, not in a background shell: it prints a QR code and a 6-digit code,
    and Enter in that terminal gives a new code. Give the user this command to paste:
+
+   ```
+   npx marshal-agents start
+   ```
+
+   or, without npm access, the copy inside the plugin:
 
    ```
    node "ROOT/dist/cli.js" start

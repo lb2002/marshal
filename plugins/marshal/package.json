@@ -7,9 +7,6 @@
   "engines": {
     "node": ">=22.12"
   },
-  "bundleDependencies": [
-    "ws"
-  ],
   "bundledVersions": {
     "ws": "8.22.2"
   }

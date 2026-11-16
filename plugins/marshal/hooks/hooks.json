@@ -5,7 +5,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -15,7 +21,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -25,7 +37,15 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude --event PreToolUse"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude",
+              "--event",
+              "PreToolUse"
+            ]
           }
         ]
       }
@@ -35,7 +55,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -45,7 +71,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -55,7 +87,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -65,10 +103,19 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude --event Stop --listen",
+            "command": "node",
             "async": true,
             "asyncRewake": true,
-            "timeout": 900
+            "timeout": 900,
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude",
+              "--event",
+              "Stop",
+              "--listen"
+            ]
           }
         ]
       }
@@ -78,7 +125,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -88,7 +141,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -98,7 +157,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -108,7 +173,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -118,7 +189,13 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude"
+            "command": "node",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude"
+            ]
           }
         ]
       }
@@ -128,8 +205,16 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/dist/cli.js\" hook --source claude --event PermissionRequest",
-            "timeout": 120
+            "command": "node",
+            "timeout": 120,
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/dist/cli.js",
+              "hook",
+              "--source",
+              "claude",
+              "--event",
+              "PermissionRequest"
+            ]
           }
         ]
       }
