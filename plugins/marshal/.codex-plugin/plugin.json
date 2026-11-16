@@ -1,0 +1,13 @@
+{
+  "name": "marshal",
+  "version": "0.14.1",
+  "description": "Supervise your Codex sessions from a Meta Quest 3: see every agent, approve harmless requests with one hand and dangerous ones with both, stop all agents with both palms.",
+  "author": {
+    "name": "Linus Baumberger",
+    "url": "https://github.com/lb2002"
+  },
+  "homepage": "https://github.com/lb2002/marshal",
+  "repository": "https://github.com/lb2002/marshal",
+  "license": "Apache-2.0",
+  "hooks": "./codex/hooks.json"
+}

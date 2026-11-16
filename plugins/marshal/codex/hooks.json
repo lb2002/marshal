@@ -1,0 +1,115 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex --event PreToolUse",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex --event PreToolUse"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex --event PermissionRequest",
+            "timeout": 120,
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex --event PermissionRequest"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$PLUGIN_ROOT/dist/cli.js\" hook --source codex",
+            "commandWindows": "node \"%PLUGIN_ROOT%\\dist\\cli.js\" hook --source codex"
+          }
+        ]
+      }
+    ]
+  }
+}

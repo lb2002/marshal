@@ -66,6 +66,34 @@ for (const h of muse.capabilities.hooks) {
 const claudeManifest = JSON.parse(readFileSync(join(plugin, ".claude-plugin", "plugin.json"), "utf8"));
 json(join(plugin, ".muse-plugin", "plugin.json"), { ...muse, name: "marshal", version: claudeManifest.version, description: claudeManifest.description.replace("your Claude Code sessions", "your Muse sessions") });
 
+// Codex reads this marketplace too and probes `.codex-plugin` before `.claude-plugin`. Its default hooks path is
+// the same `hooks/hooks.json` as Claude's, so the Codex manifest points to its own file. Codex passes the plugin
+// folder only as the environment variable PLUGIN_ROOT and runs hooks through cmd.exe on Windows, hence the
+// separate `commandWindows`.
+const CODEX = "@@CODEX@@";
+const codexHooks = buildToolHooks("codex", CODEX);
+for (const groups of Object.values(codexHooks.hooks)) {
+  for (const g of groups) {
+    for (const h of g.hooks) {
+      if (!h.command.startsWith(`${CODEX} hook `)) throw new Error("unexpected Codex hook command");
+      const args = h.command.slice(CODEX.length);
+      h.command = `node "$PLUGIN_ROOT/dist/cli.js"${args}`;
+      h.commandWindows = `node "%PLUGIN_ROOT%\\dist\\cli.js"${args}`;
+    }
+  }
+}
+json(join(plugin, "codex", "hooks.json"), codexHooks);
+json(join(plugin, ".codex-plugin", "plugin.json"), {
+  name: "marshal",
+  version: claudeManifest.version,
+  description: claudeManifest.description.replace("your Claude Code sessions", "your Codex sessions"),
+  author: claudeManifest.author,
+  homepage: claudeManifest.homepage,
+  repository: claudeManifest.repository,
+  license: claudeManifest.license,
+  hooks: "./codex/hooks.json",
+});
+
 // ---- Gemini CLI extension (the repo root is the extension) ----
 const geminiCmd = 'node "${extensionPath}/plugins/marshal/dist/cli.js"';
 json(join(root, "hooks", "hooks.json"), buildToolHooks("gemini", geminiCmd));
