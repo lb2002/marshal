@@ -1,0 +1,7 @@
+{"retained_frame":"session_permission_transaction","frame_schema_version":1,"outer_log_ordinal":1,"transaction_id":"x","children":[]}
+{"schema_version":1,"id":"r1","stream":{"kind":"session","id":"s"},"sequence":3,"recorded_at":1793916298414721,"record_type":"event","payload_type":"runtime.session.metadata","payload":{"kind":"metadata","record":{"build":{"semver":"1.4.14"}}}}
+{"schema_version":1,"id":"r2","stream":{"kind":"session","id":"s"},"sequence":4,"recorded_at":1793916301171098,"record_type":"session.fork.model_prefix","payload_type":"session.fork.model_prefix","payload":{"model_messages":[{"role":"user","content":[{"kind":"text","text":"first turn"}]},{"role":"assistant","content":[{"kind":"assistant_message","text":"echo: first turn"}]}]}}
+{"retained_marker":"omitted_live_only","schema_version":1,"position":{"id":"p","sequence":5}}
+{"schema_version":1,"id":"r3","stream":{"kind":"session","id":"s"},"sequence":6,"recorded_at":1793916301500196,"record_type":"session.fork.turn","payload_type":"session.fork.turn","payload":{"turn_index":0,"turn":{"prompt":"second turn","answer":"echo: second turn"}}}
+{"schema_version":1,"id":"r4"
+{"schema_version":1,"id":"r5","stream":{"kind":"session","id":"s"},"sequence":8,"recorded_at":1793916302000000,"record_type":"event","payload_type":"runtime.unknown.thing","payload":{"kind":"whatever","record":{"a":1}}}

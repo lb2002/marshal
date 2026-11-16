@@ -1,0 +1,16 @@
+{
+    "name": "Lotse.App.Logic",
+    "rootNamespace": "Lotse.App",
+    "references": [
+        "Lotse.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

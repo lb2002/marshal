@@ -1,0 +1,1 @@
+{"session_id":"g-3333","transcript_path":null,"cwd":"C:/work/proj","hook_event_name":"BeforeTool","timestamp":"2026-11-11T22:00:01.000Z","tool_name":"read_file","tool_input":{"absolute_path":"C:/work/proj/src/a.ts"}}

@@ -1,0 +1,5 @@
+{"sid":"3732b053-47ef-4609-b925-4eb67e6b20c9","t":0,"kind":"prompt","cwd":"<repo>"}
+{"sid":"3732b053-47ef-4609-b925-4eb67e6b20c9","t":1190,"kind":"stop_fail","summary":"Failed to authenticate: OAuth session expired and could not be refreshed","cwd":"<repo>"}
+{"sid":"3732b053-47ef-4609-b925-4eb67e6b20c9","t":2143,"kind":"session_end","cwd":"<repo>"}
+{"sid":"manual-1","t":3143,"kind":"permission","tool":"Bash","command":"ls","cwd":"<repo>"}
+{"sid":"manual-1","t":3178,"kind":"permission","tool":"Bash","command":"rm -rf ./tmpdir","cwd":"<repo>"}

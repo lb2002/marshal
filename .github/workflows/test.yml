@@ -1,0 +1,29 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  bridge:
+    # The bridge was developed and tested on Windows; Linux and macOS are not checked yet.
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: bridge
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: bridge/package-lock.json
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
+      - name: Plugin package matches the bridge
+        working-directory: .
+        shell: bash
+        run: |
+          node scripts/build-plugins.mjs
+          git diff --exit-code -- plugins hooks

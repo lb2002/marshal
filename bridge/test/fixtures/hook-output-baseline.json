@@ -1,0 +1,2162 @@
+{
+ "claude-permission-request-bash.json win32 approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json win32 approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "claude-permission-request-bash.json win32 approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "claude-permission-request-bash.json win32 approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json win32 approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json win32 approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json win32 approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json win32 approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "claude-permission-request-bash.json win32 approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "claude-permission-request-bash.json win32 approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json win32 approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json win32 approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "claude-permission-request-bash.json linux approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "claude-permission-request-bash.json linux approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "claude-permission-request-bash.json linux approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "claude-permission-request-bash.json linux approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-permission-request-bash.json linux approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-pre-tool-use-read.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "claude-session-start.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-apply-patch.json win32 approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-apply-patch.json win32 approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-apply-patch.json win32 approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-apply-patch.json win32 approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json win32 approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-apply-patch.json linux approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-apply-patch.json linux approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-apply-patch.json linux approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-apply-patch.json linux approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-apply-patch.json linux approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-bash.json win32 approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-bash.json win32 approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-bash.json win32 approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-bash.json win32 approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json win32 approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-bash.json linux approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-bash.json linux approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "codex-permission-request-bash.json linux approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "codex-permission-request-bash.json linux approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-permission-request-bash.json linux approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-pre-tool-use-bash.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "codex-stop.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-agent.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-after-tool-write.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-agent.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-read.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"decision\":\"deny\",\"reason\":\"Nein.\"}"
+ },
+ "gemini-before-tool-shell.json win32 approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"decision\":\"deny\",\"reason\":\"Nein.\"}"
+ },
+ "gemini-before-tool-shell.json win32 approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json win32 approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"decision\":\"deny\",\"reason\":\"Nein.\"}"
+ },
+ "gemini-before-tool-shell.json linux approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"decision\":\"deny\",\"reason\":\"Nein.\"}"
+ },
+ "gemini-before-tool-shell.json linux approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-before-tool-shell.json linux approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "gemini-notification.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-notification.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-notification.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal is not running, so this is denied. The user decides how to go on.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json win32 approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal is not running, so this is denied. The user decides how to go on.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=false reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=false reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=false reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=false reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=false reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=false reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal is not running, so this is denied. The user decides how to go on.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=true reply=empty": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=true reply=allow": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"allow\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=true reply=deny": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Nein.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=true reply=garbage": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=true reply=none": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-permission-request-shell.json linux approval=true reply=unreachable": {
+  "route": "/perm",
+  "ms": 1000,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal is not running, so this is denied. The user decides how to go on.\"}}}"
+ },
+ "muse-post-tool-batch.json win32 approval=false reply=empty": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json win32 approval=false reply=allow": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json win32 approval=false reply=deny": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json win32 approval=false reply=garbage": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json win32 approval=false reply=none": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json win32 approval=false reply=unreachable": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json win32 approval=true reply=empty": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json win32 approval=true reply=allow": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json win32 approval=true reply=deny": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json win32 approval=true reply=garbage": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json win32 approval=true reply=none": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json win32 approval=true reply=unreachable": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json linux approval=false reply=empty": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json linux approval=false reply=allow": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json linux approval=false reply=deny": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json linux approval=false reply=garbage": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json linux approval=false reply=none": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json linux approval=false reply=unreachable": {
+  "route": "",
+  "ms": -1,
+  "out": ""
+ },
+ "muse-post-tool-batch.json linux approval=true reply=empty": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json linux approval=true reply=allow": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json linux approval=true reply=deny": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json linux approval=true reply=garbage": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json linux approval=true reply=none": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-post-tool-batch.json linux approval=true reply=unreachable": {
+  "route": "",
+  "ms": -1,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-pre-tool-use-shell.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-pre-tool-use-shell.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json win32 approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json win32 approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json win32 approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json win32 approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json win32 approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json win32 approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json win32 approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json win32 approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json win32 approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json win32 approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json win32 approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json win32 approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json linux approval=false reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json linux approval=false reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json linux approval=false reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json linux approval=false reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json linux approval=false reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json linux approval=false reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": ""
+ },
+ "muse-stop.json linux approval=true reply=empty": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json linux approval=true reply=allow": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json linux approval=true reply=deny": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json linux approval=true reply=garbage": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json linux approval=true reply=none": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ },
+ "muse-stop.json linux approval=true reply=unreachable": {
+  "route": "/ev",
+  "ms": 500,
+  "out": "{\"hookSpecificOutput\":{\"hookEventName\":\"PermissionRequest\",\"decision\":{\"behavior\":\"deny\",\"message\":\"Marshal: no decision from the headset, so this is denied. The user can decide again.\"}}}"
+ }
+}

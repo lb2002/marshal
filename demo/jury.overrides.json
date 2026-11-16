@@ -1,0 +1,84 @@
+{
+  "p11": {
+    "onAllow": "Deleted ../legacy-site with 214 files. The demo can rewind this.",
+    "onDeny": "Deletes nothing and shows the list of the 214 files instead.",
+    "impact": { "kind": "delete", "target": "../legacy-site", "files": 214, "outsideProject": true, "recoverable": "no", "reason": "Not in a Git project: gone for good." },
+    "explain": {
+      "text": "Muse wants to delete the folder legacy-site next to your project, with all 214 files in it. This is final.",
+      "replies": [
+        "Don't delete. First show me the list of files.",
+        "Move the folder to a trash folder.",
+        "Only delete what you created yourself."
+      ]
+    }
+  },
+  "p14": {
+    "onAllow": "Overwrote main on the live site. Two commits by others are gone.",
+    "onDeny": "Pushes to a new branch instead and opens a pull request.",
+    "impact": { "kind": "force_push", "target": "origin main", "recoverable": "no", "reason": "Overwrites what is on the server. Anything new there is gone afterwards." },
+    "explain": {
+      "text": "Codex wants to overwrite main with its own version. Commits that others pushed in the meantime are lost.",
+      "replies": [
+        "No forced push. Push to a new branch.",
+        "Open a pull request instead of pushing to main.",
+        "First fetch the new commits and merge them."
+      ]
+    }
+  },
+  "agents": {
+    "demo-a1": {
+      "title": "Add the cart badge",
+      "summary": "Shows the number of items in the cart as a small badge. New component CartBadge, plus changes in Cart.tsx and cart.css. The tests pass afterwards.",
+      "recent": [
+        "Runs tests",
+        "Edits styles/cart.css",
+        "Edits components/CartBadge.tsx",
+        "Edits components/Cart.tsx",
+        "Reads components/Cart.tsx"
+      ],
+      "waitingFor": null
+    },
+    "demo-a2": {
+      "title": "Fix the checkout totals",
+      "summary": "Fixes the totals in the checkout: the rounding in pricing.ts and the shipping rule in shipping.ts. It wants to bring the finished fix straight to main of the live site with a forced push.",
+      "recent": [
+        "Edits lib/shipping.ts",
+        "Reads lib/shipping.ts",
+        "Runs tests",
+        "Edits pages/checkout.tsx",
+        "Reads lib/pricing.ts"
+      ],
+      "waitingFor": "Approval for git push --force to main: overwrites the live site, two commits by others would be lost."
+    },
+    "demo-a3": {
+      "title": "Move the old pages",
+      "summary": "Moves the old PHP pages into the new shop website and rebuilds the About page. At the end it wants to delete the old folder legacy-site, with 214 files, next to the project.",
+      "recent": [
+        "Runs tests",
+        "Edits pages/about.tsx",
+        "Reads pages/index.tsx",
+        "Runs: ls",
+        "Reads legacy/index.php"
+      ],
+      "waitingFor": "Approval to delete ../legacy-site: 214 files outside the project, gone for good."
+    },
+    "demo-a4": {
+      "title": "Product search with price filter",
+      "summary": "Builds a search bar with a price filter for the product page. It uses the price logic in pricing.ts, which Codex 1 is working on at the same time for the checkout.",
+      "recent": [
+        "Runs tests",
+        "Edits lib/pricing.ts",
+        "Reads lib/pricing.ts",
+        "Edits pages/products.tsx",
+        "Edits components/SearchBar.tsx"
+      ],
+      "waitingFor": null
+    }
+  },
+  "replies": {
+    "demo-a1": "Understood. I'll adjust the badge that way.",
+    "demo-a2": "Understood. I won't push to main; I'll open a pull request instead.",
+    "demo-a3": "Understood. I'll delete nothing and show you the list first.",
+    "demo-a4": "Understood. I'll first align the prices with the checkout."
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "session_id": "c-11111111-2222-3333-4444-555555555555",
+  "transcript_path": "/home/u/.claude/projects/-home-u-shop/c-11111111-2222-3333-4444-555555555555.jsonl",
+  "cwd": "/home/u/shop",
+  "hook_event_name": "SessionStart",
+  "source": "startup"
+}

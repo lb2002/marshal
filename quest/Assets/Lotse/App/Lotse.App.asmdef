@@ -1,0 +1,23 @@
+{
+    "name": "Lotse.App",
+    "rootNamespace": "Lotse.App",
+    "references": [
+        "Lotse.Core",
+        "Lotse.App.Logic",
+        "Oculus.VR",
+        "Unity.TextMeshPro",
+        "endel.nativewebsocket",
+        "meta.xr.mrutilitykit",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Core.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

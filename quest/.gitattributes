@@ -1,0 +1,12 @@
+# Line endings in the Unity project: LF in the repository and in the working tree (U4a review).
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.ttf binary
+*.otf binary
+*.apk binary
+*.aab binary
+*.so binary
+*.jar binary
+*.wav binary
+*.mp3 binary

@@ -1,0 +1,1 @@
+{"session_id":"g-3333","transcript_path":null,"cwd":"C:/work/proj","hook_event_name":"Notification","timestamp":"2026-11-11T22:00:00.500Z","notification_type":"ToolPermission","message":"Gemini wants to run rm","details":{"tool_name":"run_shell_command"}}

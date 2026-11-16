@@ -1,0 +1,1 @@
+{"session_id":"g-3333","transcript_path":null,"cwd":"C:/work/proj","hook_event_name":"AfterTool","timestamp":"2026-11-11T22:00:02.000Z","tool_name":"write_file","tool_input":{"file_path":"C:/work/proj/src/b.ts","content":"x"},"tool_response":{"llmContent":"ok","returnDisplay":"ok"}}

@@ -1,0 +1,6 @@
+{"sessionId":"g1","projectHash":"abc","startTime":"2026-11-12T08:00:00.000Z","lastUpdated":"2026-11-12T08:00:00.000Z","kind":"main"}
+{"$set":{"messages":[{"id":"m1","timestamp":"2026-11-12T08:00:01.000Z","type":"user","content":[{"text":"Rename the legacy pages"}]}]}}
+{"$set":{"messages":[{"id":"m1","timestamp":"2026-11-12T08:00:01.000Z","type":"user","content":[{"text":"Rename the legacy pages"}]},{"id":"m2","timestamp":"2026-11-12T08:00:02.000Z","type":"gemini","content":"Listing the folder first.","thoughts":[{"subject":"Plan","description":"Check legacy-site first"}],"toolCalls":[{"id":"tc1","name":"run_shell_command","args":{"command":"ls legacy-site"},"status":"success","resultDisplay":"a.html b.html"}]}]}}
+not json at all
+{"id":"m3","timestamp":"2026-11-12T08:00:03.000Z","type":"error","content":"Quota exceeded"}
+{"id":"m4","timestamp":"2026-11-12T08:00:04.000Z","type":"info","content":"Switched to fallback model"}

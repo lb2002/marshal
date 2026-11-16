@@ -1,0 +1,93 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini",
+            "name": "lotse"
+          }
+        ]
+      }
+    ],
+    "BeforeAgent": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini",
+            "name": "lotse"
+          }
+        ]
+      }
+    ],
+    "BeforeTool": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini --event BeforeTool",
+            "name": "lotse",
+            "timeout": 120000
+          }
+        ]
+      }
+    ],
+    "AfterTool": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini",
+            "name": "lotse"
+          }
+        ]
+      }
+    ],
+    "AfterAgent": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini",
+            "name": "lotse"
+          }
+        ]
+      }
+    ],
+    "PreCompress": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini",
+            "name": "lotse"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini",
+            "name": "lotse"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"${extensionPath}/plugins/marshal/dist/cli.js\" hook --source gemini",
+            "name": "lotse"
+          }
+        ]
+      }
+    ]
+  }
+}

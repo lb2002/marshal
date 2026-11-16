@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.superpowers/
+sandbox/
+*.log
+sandbox-muse/
+sandbox-claude/
+
+# Built package of the Claude Code plugin (scripts/build-plugins.mjs); installed straight from git.
+!plugins/marshal/dist/

@@ -1,0 +1,10 @@
+{"timestamp":"2026-11-12T08:00:00.000Z","type":"session_meta","payload":{"id":"c1","cwd":"/home/linus/shop","cli_version":"0.164.0"}}
+{"timestamp":"2026-11-12T08:00:01.000Z","type":"response_item","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"<environment_context>cwd</environment_context>"}]}}
+{"timestamp":"2026-11-12T08:00:02.000Z","type":"response_item","payload":{"type":"message","role":"user","content":[{"type":"input_text","text":"Add a price filter to the search"}]}}
+{"timestamp":"2026-11-12T08:00:03.000Z","type":"response_item","payload":{"type":"reasoning","summary":[{"type":"summary_text","text":"Looking for the search module"}],"encrypted_content":"xyz"}}
+{"timestamp":"2026-11-12T08:00:04.000Z","type":"response_item","payload":{"type":"function_call","name":"shell","arguments":"{\"command\":[\"bash\",\"-lc\",\"rg price src\"]}","call_id":"call1"}}
+{"timestamp":"2026-11-12T08:00:05.000Z","type":"response_item","payload":{"type":"function_call_output","call_id":"call1","output":"{\"output\":\"src/search.ts: price\",\"metadata\":{\"exit_code\":0}}"}}
+{"timestamp":"2026-11-12T08:00:06.000Z","type":"event_msg","payload":{"type":"agent_message","message":"duplicate of the assistant message"}}
+{"broken":
+{"timestamp":"2026-11-12T08:00:07.000Z","type":"response_item","payload":{"type":"message","role":"assistant","content":[{"type":"output_text","text":"The filter is in place."}]}}
+{"timestamp":"2026-11-12T08:00:08.000Z","type":"response_item","payload":{"type":"function_call_output","call_id":"call2","output":"{\"output\":\"boom\",\"metadata\":{\"exit_code\":2}}"}}
