@@ -11,6 +11,7 @@
 //   10 s for stdin; observe-only events keep the 500 ms budget, counted from process start.
 
 import { request } from "node:http";
+import type { ShimSource } from "./adapters.js";
 import { parseArgs } from "./cli-args.js";
 import { APPROVAL_TEXT, MUSE_NO_DECISION_DENY, PRE_TOOL_TEXT, isApprovalEvent } from "./hook-fallback.js";
 import { PRE_TOOL_EVENT, haltRefusal } from "./halt.js";
@@ -26,7 +27,7 @@ export const DEFAULT_HTTP_PORT = 47820;
 export const DEADLINE_MS = 500;
 /** How long an approval hook waits for its stdin (a loaded machine can be slow to hand it over). */
 export const APPROVAL_STDIN_MS = 10_000;
-const SOURCES = new Set(["claude", "muse", "codex", "gemini"]);
+const SOURCES = new Set(["claude", "muse", "codex", "gemini", "opencode"]);
 /**
  * How long a Stop listener waits for a reply, from process start. Claude Code enforces the hook's timeout
  * (900 s) on asyncRewake hooks, so the listener ends a little earlier, on its own and silently.
@@ -205,7 +206,7 @@ export async function runHook(rawArgs: string[], env: NodeJS.ProcessEnv = proces
     const evMs = start + DEADLINE_MS - Date.now();
     const permMs = source === "muse" ? musePermWaitMs(env) : PERM_WAIT_MS;
     // Asked only on a path without a decision and without an answer from the bridge (hook-shim.ts).
-    const out = await runShim(source as "claude" | "muse" | "codex" | "gemini", raw, post, { evMs, permMs, approval, haltMarker: haltLive, kind: hookKind(source, event) });
+    const out = await runShim(source as ShimSource, raw, post, { evMs, permMs, approval, haltMarker: haltLive, kind: hookKind(source, event) });
     // Claude's Stop hook (async, asyncRewake) then waits for a reply from the headset.
     if (flags.listen === true && source === "claude" && event === "Stop" && out === "") return await listen(raw, start, env);
     finish(out === "" && museApproval ? MUSE_NO_DECISION_DENY : out);

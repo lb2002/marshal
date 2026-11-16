@@ -33,8 +33,9 @@ export type ServerMessage =
   // carries its impacts as `perm_impact` messages).
   | { type: "snapshot"; agents: AgentState[]; pending: PermRequest[]; explains: Record<string, Explanation>; impacts?: Record<string, Impact>; halt?: HaltState }
   // `agent.source` names the coding agent behind a session: "claude" (Claude Code), "muse" (Meta Muse),
-  // "codex" (OpenAI Codex CLI) or "gemini" (Google Gemini CLI). It is fixed by the session's first event.
-  // `agent.name` follows it: "Agent N" for Claude, "Muse N", "Codex N", "Gemini N" (counted per source).
+  // "codex" (OpenAI Codex CLI), "gemini" (Google Gemini CLI) or "opencode" (OpenCode). It is fixed by the session's
+  // first event. `agent.name` follows it: "Agent N" for Claude, "Muse N", "Codex N", "Gemini N", "OpenCode N"
+  // (counted per source).
   // `agent.title` (optional, at most 40 characters): what the agent works on. First the rule title from its
   // first prompt (first sentence, redacted, absolute paths shortened); with the AI on, a later `agent`
   // message may replace it with the AI's title (at most 6 words). `agent.project` (optional, at most 30

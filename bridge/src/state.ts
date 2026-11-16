@@ -35,7 +35,7 @@ const TEST_RE = /\b(?:npm (?:run )?test|pnpm (?:run )?test|yarn (?:run )?test|py
 const WAIT_NOTIFY = new Set(["idle_prompt", "agent_needs_input"]);
 const SHELL_TOOLS = new Set(["bash", "powershell"]);
 /** Display name prefix per source; Claude keeps "Agent N". */
-const NAME_PREFIX: Record<AgentSource, string> = { claude: "Agent", muse: "Muse", codex: "Codex", gemini: "Gemini" };
+const NAME_PREFIX: Record<AgentSource, string> = { claude: "Agent", muse: "Muse", codex: "Codex", gemini: "Gemini", opencode: "OpenCode" };
 
 // Tool names, paths and summaries come from the agent: invisible and control characters are dropped first.
 const clip = (raw: string) => {

@@ -239,7 +239,7 @@ export function resolveFor(p: string, ctx: Ctx): string | null {
 }
 
 /** Folders of the agents' and Marshal's own settings and state: writing below any of them is a settings change. */
-const AGENT_DIRS = new Set([".claude", ".codex", ".gemini", ".muse", ".lotse"]);
+const AGENT_DIRS = new Set([".claude", ".codex", ".gemini", ".muse", ".opencode", ".lotse"]);
 
 /**
  * A Windows 8.3 short name (`CLAUDE~1`, `SETTIN~1.JSO`): it can stand for any long name, a protected one included,

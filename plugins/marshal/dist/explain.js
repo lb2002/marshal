@@ -145,7 +145,7 @@ export function ruleExplanation(req) {
  */
 export const GEMINI_PREFIX = "Gemini (Deny only): ";
 /** How a rule text names the agent; the rule texts are written for Claude. */
-const RULE_SUBJECT = { claude: "Claude", codex: "Codex", muse: "Muse", gemini: "Gemini" };
+const RULE_SUBJECT = { claude: "Claude", codex: "Codex", muse: "Muse", gemini: "Gemini", opencode: "OpenCode" };
 /**
  * The explanation as the card shows it for this source: a rule text names the agent that asks (the rules say
  * "Claude …"). Nothing is put in front of the sentence: no vendor prefix inside an explanation (a text that still

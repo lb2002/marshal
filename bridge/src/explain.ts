@@ -170,7 +170,7 @@ export function ruleExplanation(req: PermRequest): Explanation {
 export const GEMINI_PREFIX = "Gemini (Deny only): ";
 
 /** How a rule text names the agent; the rule texts are written for Claude. */
-const RULE_SUBJECT: Record<AgentSource, string> = { claude: "Claude", codex: "Codex", muse: "Muse", gemini: "Gemini" };
+const RULE_SUBJECT: Record<AgentSource, string> = { claude: "Claude", codex: "Codex", muse: "Muse", gemini: "Gemini", opencode: "OpenCode" };
 
 /**
  * The explanation as the card shows it for this source: a rule text names the agent that asks (the rules say

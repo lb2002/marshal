@@ -19,9 +19,9 @@ export type AgentEventKind =
   | "plan";
 
 /** Which coding agent sent the event. Absent means "claude" (Claude Code, and every older recording). */
-export type AgentSource = "claude" | "muse" | "codex" | "gemini";
+export type AgentSource = "claude" | "muse" | "codex" | "gemini" | "opencode";
 
-export const AGENT_SOURCES: ReadonlySet<string> = new Set<AgentSource>(["claude", "muse", "codex", "gemini"]);
+export const AGENT_SOURCES: ReadonlySet<string> = new Set<AgentSource>(["claude", "muse", "codex", "gemini", "opencode"]);
 
 import { homedir } from "node:os";
 import type { PlanSteps } from "./plan.js";
@@ -99,7 +99,7 @@ function compact(ev: AgentEvent): AgentEvent {
 /** The hook shim marks the payloads of the other tools with `lotse_source`; anything else counts as Claude. */
 function sourceOf(o: Obj): AgentSource | undefined {
   const s = o.lotse_source;
-  return s === "muse" || s === "codex" || s === "gemini" ? s : undefined;
+  return s === "muse" || s === "codex" || s === "gemini" || s === "opencode" ? s : undefined;
 }
 
 /** `homeDir` shortens absolute paths in the title (`~`, `…/name`). */

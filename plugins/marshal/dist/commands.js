@@ -30,16 +30,16 @@ import { QrScreen } from "./qr-screen.js";
 const HTTP_PORT = 47820;
 const WS_PORT = 47821;
 const USAGE = `Usage:
-  lotse connect [--all] [--tool claude|muse|codex|gemini|all] [--yes] [--keep-muse] [--budget 15] [--explain cli|off] [--no-qr]
-  lotse connect --project <dir> [--tool claude|muse|codex|gemini] [--transport command|http] [--temporary] [--budget 15] [--explain cli|off] [--no-qr]
-  lotse disconnect [--all] [--tool claude|muse|codex|gemini|all] [--yes]
+  lotse connect [--all] [--tool claude|muse|codex|gemini|opencode|all] [--yes] [--keep-muse] [--budget 15] [--explain cli|off] [--no-qr]
+  lotse connect --project <dir> [--tool claude|muse|codex|gemini|opencode] [--transport command|http] [--temporary] [--budget 15] [--explain cli|off] [--no-qr]
+  lotse disconnect [--all] [--tool claude|muse|codex|gemini|opencode|all] [--yes]
   lotse start [--record <file> [--force]] [--budget 15] [--explain cli|off] [--no-qr]
   lotse demo <recording.ndjson> [--speed 1] [--root <dir>] [--budget 15] [--explain cli|off] [--no-qr]
   lotse pack <recording.ndjson> -o <pack.json> [--overrides <file>] [--budget 15] [--explain cli|off]
   lotse statusline                      (reads statusline JSON on stdin)
-  lotse install-hooks --project <dir> [--tool claude|muse|codex|gemini] [--transport command|http] [--force]
-  lotse uninstall-hooks --project <dir> [--tool claude|muse|codex|gemini] [--yes]
-  lotse hook [--source claude|muse|codex|gemini]  (command hook; reads the hook JSON on stdin)
+  lotse install-hooks --project <dir> [--tool claude|muse|codex|gemini|opencode] [--transport command|http] [--force]
+  lotse uninstall-hooks --project <dir> [--tool claude|muse|codex|gemini|opencode] [--yes]
+  lotse hook [--source claude|muse|codex|gemini|opencode]  (command hook; reads the hook JSON on stdin)
 `;
 /** LOTSE_TOKEN (trimmed, empty counts as unset), else ~/.lotse/token (created on first use). */
 function loadOrCreateToken() {
@@ -561,7 +561,7 @@ function hookPlace(flags) {
         throw new UsageError("--project <dir> is required");
     const t = flags.tool ?? "claude";
     if (t !== "claude" && !(typeof t === "string" && HOOK_TOOLS.includes(t))) {
-        throw new UsageError("--tool must be claude, muse, codex or gemini");
+        throw new UsageError("--tool must be claude, muse, codex, gemini or opencode");
     }
     return { dir: resolve(flags.project), tool: t, bridgeCmd: bridgeCmd(), homeDir: homedir() };
 }

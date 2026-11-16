@@ -22,12 +22,15 @@ export type Enforcement = "every-step" | "requests-only" | "none";
  *   every tool that changes something. Its own `update_plan` and web search are not known to reach the hook.
  * - muse: PreToolUse is installed and gets the same refusal, but its deny format comes only from third-party
  *   write-ups and hooks for read tools were seen not to fire; only permission requests are known to be refusable.
+ * - opencode: the Marshal plugin (opencode-plugin.ts) runs the PreToolUse hook in `tool.execute.before`, which
+ *   OpenCode awaits before every tool call; the plugin throws on the deny, and a throw there blocks the call.
  */
 export const ENFORCEMENT: Record<AgentSource, Enforcement> = {
   claude: "every-step",
   codex: "every-step",
   gemini: "every-step",
   muse: "requests-only",
+  opencode: "every-step",
 };
 
 /**
@@ -54,11 +57,13 @@ export const PRE_TOOL_HEADER_VALUE = "PreToolUse";
 export type HookKind = "pre" | "perm" | "other";
 
 /** The pre-tool event per tool (Gemini's BeforeTool is also its approval event). */
-export const PRE_TOOL_EVENT: Record<string, string> = { claude: "PreToolUse", codex: "PreToolUse", muse: "PreToolUse", gemini: "BeforeTool" };
+export const PRE_TOOL_EVENT: Record<string, string> = { claude: "PreToolUse", codex: "PreToolUse", muse: "PreToolUse", gemini: "BeforeTool", opencode: "PreToolUse" };
 
 /** The halt refusal a hook prints itself, in the tool's own format (the same text the bridge would answer). */
 export function haltRefusal(source: string, kind: "pre" | "perm"): string {
   if (source === "gemini") return JSON.stringify({ decision: "deny", reason: HALT_MESSAGE });
+  // The Marshal OpenCode plugin reads one format for both: it throws (pre-tool) or sets the effect deny (permission).
+  if (source === "opencode") return JSON.stringify({ decision: "deny", message: HALT_MESSAGE });
   return JSON.stringify(kind === "pre" ? preToolHaltReply() : permHaltReply());
 }
 

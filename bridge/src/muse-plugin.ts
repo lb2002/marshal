@@ -42,7 +42,7 @@ export function findMuseBin(env: NodeJS.ProcessEnv): string | null {
 }
 
 /** `"<node>" "<cli.js>"` (or the older `node "<cli.js>"`) → the node and the cli.js the hooks run. */
-function commandParts(bridgeCmd: string): { node: string; cli: string } {
+export function commandParts(bridgeCmd: string): { node: string; cli: string } {
   const m = /^(?:"([^"]+)"|(node)) "([^"]+)"$/.exec(bridgeCmd);
   if (!m) throw new Error(`unexpected bridge command: ${bridgeCmd}`);
   return { node: m[1] ?? m[2], cli: m[3] };

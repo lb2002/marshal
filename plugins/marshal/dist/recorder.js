@@ -79,7 +79,7 @@ function eventProblem(o) {
         if (o[k] !== undefined && typeof o[k] !== "string")
             return `${k} must be a string`;
     if (o.source !== undefined && !(typeof o.source === "string" && AGENT_SOURCES.has(o.source)))
-        return "source must be claude, muse, codex or gemini";
+        return "source must be claude, muse, codex, gemini or opencode";
     for (const k of NUMBER_FIELDS) {
         if (o[k] !== undefined && !(typeof o[k] === "number" && Number.isFinite(o[k])))
             return `${k} must be a number`;

@@ -142,6 +142,36 @@ describe("lotse hook as a process", () => {
     expect(await hook(["--source", "muse"], { port, env, stdin: raw("muse-pre-tool-use-shell") })).toEqual({ stdout: "", code: 0 });
   }, 30_000);
 
+  it("OpenCode: the plugin's permission reaches the headset as two-hand when unjoined; allow and deny come back in the plugin's form", async () => {
+    const port = await closedPort();
+    const perm = (resources: string[], extra: object = {}) =>
+      JSON.stringify({ event: "PermissionRequest", sessionID: "oc-1", cwd: home, action: "shell", resources, ...extra });
+    // bridge down: nothing (OpenCode asks itself), exit 0
+    expect(await hook(["--source", "opencode", "--event", "PermissionRequest"], { port, stdin: perm(["ls"]) })).toEqual({ stdout: "", code: 0 });
+    expect(await hook(["--source", "opencode", "--event", "PreToolUse"], { port, stdin: "{cut" })).toEqual({ stdout: "", code: 0 });
+    handle = await bootLive({ ingestToken: TOKEN, holdMs: 5000 });
+    h = await pairHeadset(handle);
+    h.msgs.length = 0;
+    const seen: { risk: string; tool: string; command?: string }[] = [];
+    const answer = setInterval(() => {
+      for (const m of h!.msgs.splice(0)) {
+        if (m.type !== "perm_open") continue;
+        seen.push({ risk: m.request.risk.risk, tool: m.request.tool, command: m.request.command });
+        h!.send({ type: "perm_decision", decision: { id: m.request.id, behavior: m.request.command?.includes("deny") ? "deny" : "allow", confirm: "two-hand", message: "no" } });
+      }
+    }, 20);
+    try {
+      const args = ["--source", "opencode", "--event", "PermissionRequest"];
+      expect(JSON.parse((await hook(args, { port: handle.httpPort, stdin: perm(["ls"]) })).stdout)).toEqual({ decision: "allow" });
+      expect(JSON.parse((await hook(args, { port: handle.httpPort, stdin: perm(["echo deny"], { tool: "shell", input: { command: "echo deny" } }) })).stdout)).toMatchObject({ decision: "deny" });
+      // without the joined call the request is unclear (two hands); with it, the call itself is rated
+      expect(seen[0]).toMatchObject({ risk: "destructive", command: "ls" });
+      expect(seen[1]).toMatchObject({ risk: "safe", command: "echo deny" });
+    } finally {
+      clearInterval(answer);
+    }
+  }, 30_000);
+
   it("legacy Muse installs wait up to 10 s for a late stdin and still reach the headset", async () => {
     handle = await bootLive({ ingestToken: TOKEN, holdMs: 5000 });
     h = await pairHeadset(handle);

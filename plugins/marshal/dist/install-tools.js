@@ -1,9 +1,17 @@
 // Project hook files for Muse (Meta), Codex CLI and Gemini CLI. Every hook runs the same shim,
-// `<bridgeCmd> hook --source <tool>`; the guards and the write come from install.ts.
+// `<bridgeCmd> hook --source <tool>`; the guards and the write come from install.ts. OpenCode has no hook file: it
+// gets a plugin (opencode-plugin.ts, written by opencode-install.ts), which runs the same shim.
 import { join, resolve } from "node:path";
 import { legacyBridgeCmds, removeHooksWhere } from "./install.js";
 import { PRODUCT_NAME } from "./product.js";
-export const HOOK_TOOLS = ["muse", "codex", "gemini"];
+export const HOOK_TOOLS = ["muse", "codex", "gemini", "opencode"];
+/** OpenCode's user config folders: `$XDG_CONFIG_HOME/opencode`, else `~/.config/opencode` (also on Windows). */
+export function opencodeUserDirs(home, env = process.env) {
+    const dirs = [{ dir: join(home, ".config", "opencode"), label: "~/.config/opencode" }];
+    if (env.XDG_CONFIG_HOME)
+        dirs.push({ dir: join(resolve(env.XDG_CONFIG_HOME), "opencode"), label: "XDG_CONFIG_HOME/opencode" });
+    return dirs;
+}
 export const TOOL_TARGETS = {
     muse: {
         sub: ".muse",
@@ -41,6 +49,12 @@ export const TOOL_TARGETS = {
             return dirs;
         },
     },
+    // The plugin file, below `.opencode`; opencode-install.ts also refuses links on the folders in between.
+    opencode: {
+        sub: ".opencode",
+        file: join("plugins", "marshal", "index.js"),
+        userDirs: (home) => opencodeUserDirs(home),
+    },
 };
 /** The Muse events Lotse hooks, PascalCase (Muse rejects `permissionRequest`); also used by the user plugin. */
 export const MUSE_EVENTS = ["SessionStart", "UserPromptSubmit", "PreToolUse", "PermissionRequest", "PostToolUse", "PostToolUseFailure", "Notification", "Stop", "StopFailure", "SubagentStart", "SubagentStop", "PreCompact", "SessionEnd"];
@@ -61,6 +75,7 @@ export const TRUST_STEP = {
     muse: "Muse: start muse once in this folder and trust the workspace (and the new hooks) when it asks. Project hooks run only in a trusted folder.",
     codex: `Codex: trust the project when Codex asks, then open /hooks once and trust the ${PRODUCT_NAME} hooks. Codex skips new or changed hooks until they are reviewed.`,
     gemini: `Gemini: trust this folder when Gemini asks (or /permissions), and accept the new project hooks. ${PRODUCT_NAME} can only deny for Gemini, not approve.`,
+    opencode: `OpenCode: it loads plugins only when it starts, so restart OpenCode in this folder. Without a headset decision OpenCode asks as usual.`,
 };
 const shimCommand = (tool, bridgeCmd) => `${bridgeCmd} hook --source ${tool}`;
 /** The approval hook names its event, so the shim fails closed (Muse) and waits 10 s for stdin before reading it. */
