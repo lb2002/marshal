@@ -4,17 +4,17 @@ Marshal shows your coding agents (Claude Code, Codex CLI, Gemini CLI, Muse, Open
 
 ## Three steps
 
-1. **Install the app on the headset.** Install the Marshal APK on the Quest (developer mode, then `adb install <the APK file>` or drag it into the Meta Quest Developer Hub). Headset and PC must be on the same network.
-2. **Run one command on the PC.** You need Node.js 22.12 or newer. Once, in `bridge/`: `npm install` and `npm run build`. Then, from `bridge/`:
+1. **Install the app on the headset.** Install Marshal from the release channel (https://www.meta.com/s/5FzKfTWZQ), or the APK with developer mode (`adb install <the APK file>` or drag it into the Meta Quest Developer Hub). Headset and PC must be on the same network.
+2. **Run one command on the PC.** You need Node.js 22.12 or newer.
 
    ```
-   node dist/cli.js connect
+   npx marshal-agents
    ```
 
-   It lists what it will change for every agent it finds on this computer and asks once (`y` to go on). Then it starts the bridge and shows a 6-digit code, the PC's address and a QR code.
-3. **Look at the code.** In the headset: open Marshal and look at the QR code in the terminal. If the QR code does not show (a narrow window, or the output is not a terminal), choose "Connect to my PC" in the headset and type the address and the code.
+   It lists what it will change for every agent it finds on this computer and asks once (`y` to go on). Then it starts the bridge, shows a 6-digit code, the PC's address and a QR code, and opens a status page in your browser with the same QR code. (From a clone of this repository instead: `npm install` and `npm run build` once in `bridge/`, then `node dist/cli.js connect`.)
+3. **Look at the code.** In the headset: open Marshal and look at the QR code on the status page or in the terminal. Or choose "Connect to my PC" in the headset and type the address and the code.
 
-The code works once, for 5 minutes; press Enter in the terminal for a new one. Ctrl+C stops the bridge.
+The code works once, for 5 minutes; "New code" on the page or Enter in the terminal gives a new one. Ctrl+C stops the bridge. Next time, `npx marshal-agents start` starts it again; `npx marshal-agents disconnect` removes everything Marshal added. When run through `npx`, Marshal keeps a copy of itself in `~/.lotse/runtime/<version>` for the hooks, because npm may clear its own cache.
 
 ## What is installed where
 

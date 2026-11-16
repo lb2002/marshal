@@ -1,6 +1,6 @@
 {
   "name": "marshal-agents",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "description": "Marshal: supervise Claude Code, Codex, Gemini CLI and Muse from a Meta Quest 3 and approve their requests with your hands. This is the PC bridge; run `npx marshal-agents` to set it up.",
   "keywords": [
     "claude-code",

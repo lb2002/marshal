@@ -1,7 +1,7 @@
 {
   "name": "marshal",
   "displayName": "Marshal",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "description": "Supervise your Claude Code sessions from a Meta Quest 3: see every agent, approve harmless requests with one hand and dangerous ones with both, stop all agents with both palms.",
   "keywords": [
     "meta-quest",

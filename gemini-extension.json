@@ -1,5 +1,5 @@
 {
   "name": "marshal",
-  "version": "0.14.1",
+  "version": "0.15.0",
   "description": "Shows your Gemini CLI sessions in the Marshal headset app (Meta Quest 3) and lets you deny tool calls from there."
 }
