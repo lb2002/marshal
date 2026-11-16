@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "name": "marshal",
+  "version": "0.14.1",
+  "description": "Supervise your Muse sessions from a Meta Quest 3: see every agent, approve harmless requests with one hand and dangerous ones with both, stop all agents with both palms.",
+  "compat": {
+    "manifestDir": ".muse-plugin"
+  },
+  "capabilities": {
+    "hooks": [
+      {
+        "id": "session-start",
+        "event": "SessionStart",
+        "command": [
+          "node",
+          "muse-hooks/session-start.mjs"
+        ]
+      },
+      {
+        "id": "user-prompt-submit",
+        "event": "UserPromptSubmit",
+        "command": [
+          "node",
+          "muse-hooks/user-prompt-submit.mjs"
+        ]
+      },
+      {
+        "id": "pre-tool-use",
+        "event": "PreToolUse",
+        "command": [
+          "node",
+          "muse-hooks/pre-tool-use.mjs"
+        ]
+      },
+      {
+        "id": "permission-request",
+        "event": "PermissionRequest",
+        "command": [
+          "node",
+          "muse-hooks/permission-request.mjs"
+        ]
+      },
+      {
+        "id": "post-tool-use",
+        "event": "PostToolUse",
+        "command": [
+          "node",
+          "muse-hooks/post-tool-use.mjs"
+        ]
+      },
+      {
+        "id": "post-tool-use-failure",
+        "event": "PostToolUseFailure",
+        "command": [
+          "node",
+          "muse-hooks/post-tool-use-failure.mjs"
+        ]
+      },
+      {
+        "id": "notification",
+        "event": "Notification",
+        "command": [
+          "node",
+          "muse-hooks/notification.mjs"
+        ]
+      },
+      {
+        "id": "stop",
+        "event": "Stop",
+        "command": [
+          "node",
+          "muse-hooks/stop.mjs"
+        ]
+      },
+      {
+        "id": "stop-failure",
+        "event": "StopFailure",
+        "command": [
+          "node",
+          "muse-hooks/stop-failure.mjs"
+        ]
+      },
+      {
+        "id": "subagent-start",
+        "event": "SubagentStart",
+        "command": [
+          "node",
+          "muse-hooks/subagent-start.mjs"
+        ]
+      },
+      {
+        "id": "subagent-stop",
+        "event": "SubagentStop",
+        "command": [
+          "node",
+          "muse-hooks/subagent-stop.mjs"
+        ]
+      },
+      {
+        "id": "pre-compact",
+        "event": "PreCompact",
+        "command": [
+          "node",
+          "muse-hooks/pre-compact.mjs"
+        ]
+      },
+      {
+        "id": "session-end",
+        "event": "SessionEnd",
+        "command": [
+          "node",
+          "muse-hooks/session-end.mjs"
+        ]
+      }
+    ]
+  }
+}
