@@ -535,14 +535,35 @@ export async function startServer(opts) {
             tools: (view.tools ?? []).map((t) => ({ name: t.name, status: t.status })),
         };
     }
+    /** The status page's session secret (set as a cookie by the one page load with the URL key). */
+    const uiSession = randomBytes(32).toString("hex");
+    let uiKeyUsed = false;
+    /** Cookies are per host, not per port: the name carries the port, so two bridges never mix them up. */
+    const uiCookieName = () => `marshal_ui_${httpPort}`;
+    function uiCookieValid(req) {
+        const header = req.headers.cookie;
+        if (typeof header !== "string")
+            return false;
+        for (const part of header.split(";")) {
+            const eq = part.indexOf("=");
+            if (eq > 0 && part.slice(0, eq).trim() === uiCookieName() && safeEqual(part.slice(eq + 1).trim(), uiSession))
+                return true;
+        }
+        return false;
+    }
     /**
      * `/ui`, `/ui/state`, `/ui/code`. A wrong or missing key looks exactly like an unknown path (404). Then the Host must
      * be this bridge by name (DNS rebinding), an Origin, when sent, must be this page's own, and only the one method per
      * route is served. No CORS headers: another site can neither read these answers nor send the key.
      */
     function handleUi(req, res, urlPath, ui) {
+        // Two credentials. The key from the printed/opened URL works once, for loading the page: the browser was started
+        // with it on its command line, where other local processes may read it. That load sets an HttpOnly cookie with a
+        // second secret, which is what the page's own requests (and any reload in that browser) use from then on.
         const k = new URLSearchParams((req.url ?? "").split("?")[1] ?? "").get("k");
-        if (k === null || !safeEqual(k, ui.key))
+        const byCookie = uiCookieValid(req);
+        const byKey = !byCookie && !uiKeyUsed && urlPath === "/ui" && req.method === "GET" && k !== null && safeEqual(k, ui.key);
+        if (!byCookie && !byKey)
             return reply(res, 404, { error: "not-found" });
         const host = req.headers.host;
         if (host !== `127.0.0.1:${httpPort}` && host !== `localhost:${httpPort}`)
@@ -558,7 +579,12 @@ export async function startServer(opts) {
             return;
         }
         if (urlPath === "/ui") {
-            res.writeHead(200, { ...UI_HEADERS, "Content-Type": "text/html; charset=utf-8", "Content-Length": Buffer.byteLength(UI_PAGE) });
+            const cookie = {};
+            if (byKey) {
+                uiKeyUsed = true;
+                cookie["Set-Cookie"] = `${uiCookieName()}=${uiSession}; Path=/ui; HttpOnly; SameSite=Strict`;
+            }
+            res.writeHead(200, { ...UI_HEADERS, ...cookie, "Content-Type": "text/html; charset=utf-8", "Content-Length": Buffer.byteLength(UI_PAGE) });
             res.end(UI_PAGE);
             return;
         }

@@ -15,6 +15,8 @@ const TOKEN = "t".repeat(64);
 const HOST = "192.168.1.20";
 
 let handle: ServerHandle | undefined;
+/** The status page cookie that boot() got by loading the page once with the key. */
+let cookie = "";
 const headsets: Headset[] = [];
 afterEach(async () => {
   for (const h of headsets.splice(0)) h.close();
@@ -34,6 +36,12 @@ async function boot(o: { view?: () => UiView; ui?: false; onCodeReplaced?: (c: s
     ...(o.onCodeReplaced ? { onCodeReplaced: o.onCodeReplaced } : {}),
     ...(o.now ? { now: o.now } : {}),
   });
+  cookie = "";
+  if (o.ui !== false) {
+    const page = await raw(`/ui?k=${KEY}`);
+    expect(page.status).toBe(200);
+    cookie = String(page.headers["set-cookie"]).split(";")[0];
+  }
   return handle;
 }
 
@@ -47,7 +55,9 @@ interface Res {
 function raw(path: string, o: { method?: string; headers?: Record<string, string>; body?: string } = {}): Promise<Res> {
   const h = handle as ServerHandle;
   return new Promise((resolve, reject) => {
-    const req = httpRequest({ host: "127.0.0.1", port: h.httpPort, path, method: o.method ?? "GET", headers: o.headers }, (res) => {
+    const headers = { ...(cookie && !(o.headers && "Cookie" in o.headers) ? { Cookie: cookie } : {}), ...o.headers };
+    for (const [name, v] of Object.entries(headers)) if (v === "") delete headers[name];
+    const req = httpRequest({ host: "127.0.0.1", port: h.httpPort, path, method: o.method ?? "GET", headers }, (res) => {
       let body = "";
       res.on("data", (d) => (body += d));
       res.on("end", () => resolve({ status: res.statusCode ?? 0, headers: res.headers, body }));
@@ -101,13 +111,45 @@ describe("status page: who may reach it", () => {
     for (const p of ["/ui", "/ui/state", "/ui/code"]) {
       for (const q of ["", "?k=", `?k=${KEY.slice(1)}`, `?k=${KEY}0`, `?k=${KEY.toUpperCase()}`, `?key=${KEY}`]) {
         for (const method of ["GET", "POST"]) {
-          const r = await raw(`${p}${q}`, { method });
+          const r = await raw(`${p}${q}`, { method, headers: { Cookie: "" } });
           expect(r.status).toBe(404);
           expect(r.body).toBe(unknown.body);
           expect(r.headers["content-security-policy"]).toBeUndefined();
         }
       }
     }
+  });
+
+  it("the URL key works once, only to load the page; then the cookie counts, and the key alone gets nothing", async () => {
+    const h = await boot();
+    const page = await raw(`/ui?k=${KEY}`, { headers: { Cookie: "" } });
+    expect(page.status).toBe(404);
+    for (const p of ["/ui/state", "/ui/code"]) expect((await raw(`${p}?k=${KEY}`, { method: p === "/ui/code" ? "POST" : "GET", headers: { Cookie: "" } })).status).toBe(404);
+    expect((await raw("/ui/state")).status).toBe(200);
+    expect((await raw("/ui")).status).toBe(200);
+    expect(cookie.startsWith(`marshal_ui_${h.httpPort}=`)).toBe(true);
+    for (const bad of [`${cookie}0`, cookie.replace(/=.*/, "=x"), `marshal_ui_${h.httpPort + 1}=${cookie.split("=")[1]}`, `x=${cookie.split("=")[1]}`]) {
+      expect((await raw("/ui/state", { headers: { Cookie: bad } })).status).toBe(404);
+    }
+  });
+
+  it("the cookie is HttpOnly, SameSite=Strict, for /ui only, and set exactly once", async () => {
+    await boot();
+    const second = await raw("/ui");
+    expect(second.headers["set-cookie"]).toBeUndefined();
+  });
+
+  it("a key load from a wrong Host or Origin does not spend the key", async () => {
+    const h = await boot({ ui: false });
+    await handle?.close();
+    handle = await bootLive({ ingestToken: TOKEN, ui: { key: KEY, view: () => view() } });
+    cookie = "";
+    expect((await raw(`/ui?k=${KEY}`, { headers: { Host: `evil.example:${handle.httpPort}` } })).status).toBe(403);
+    expect((await raw(`/ui?k=${KEY}`, { headers: { Origin: "https://evil.example" } })).status).toBe(403);
+    const ok = await raw(`/ui?k=${KEY}`);
+    expect(ok.status).toBe(200);
+    expect(String(ok.headers["set-cookie"])).toMatch(/^marshal_ui_\d+=[0-9a-f]{64}; Path=\/ui; HttpOnly; SameSite=Strict$/);
+    void h;
   });
 
   it("refuses any other Host with 403 (DNS rebinding)", async () => {

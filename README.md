@@ -21,31 +21,33 @@ Marshal is a mixed reality app for Meta Quest 3 that shows every coding agent on
 
 The headset never talks to an agent directly. The bridge receives each agent's hook events, rates every permission request with a deterministic classifier (no AI), and holds the request until the headset answers. Without a headset decision, Claude Code, Codex and Gemini show their own prompt as usual.
 
-## Try it
+## Get started
 
-**Without a PC.** Install Marshal from the release channel above and choose "Take the tour". A recorded session teaches each gesture by letting you do it. No account, no controller.
+You need a Meta Quest 3 and, for your own agents, a PC with Node.js 22.12 or newer on the same network.
 
-**With Claude Code (plugin).** In Claude Code or the Code tab of the Claude desktop app:
+1. **On the headset:** install Marshal from the release channel above. "Take the tour" works right away, without a PC: a recorded session teaches each gesture by letting you do it.
+2. **On the PC:** run one command.
 
-```
-/plugin marketplace add lb2002/marshal
-/plugin install marshal@marshal
-```
+   ```
+   npx marshal-agents
+   ```
 
-Then ask Claude to "connect Marshal" (or run `/marshal:connect`). It starts the bridge, which prints a QR code and a 6-digit code; look at it from the headset. To switch Marshal off: `/plugin disable marshal@marshal`.
+   It finds the agents on this computer (Claude Code, Codex CLI, Gemini CLI, Muse), shows exactly which file it changes for each, asks once, and starts the bridge. Your browser opens a local status page with the pairing QR code.
+3. **Look at the QR code** with the headset open in Marshal, or choose "Connect to my PC" and type the 6-digit code. Done: your agents appear as lines in the window, and their permission requests wait for your hands.
 
-**With every agent at once.** Node.js 22.12 or newer:
+Next time, `npx marshal-agents start` starts the bridge again. `npx marshal-agents disconnect` removes everything Marshal added. Details: [docs/setup.md](docs/setup.md).
 
-```
-cd bridge
-npm install
-npm run build
-node dist/cli.js connect
-```
+### Or use your agent's plugin system
 
-`connect` finds Claude Code, Codex CLI, Gemini CLI and Muse on this computer, lists exactly which file it changes for each, asks once, installs the hooks and starts the bridge. `node dist/cli.js disconnect` removes everything again. Use either the plugin or `connect` for Claude Code, not both. Details: [docs/setup.md](docs/setup.md).
+One plugin folder ([`plugins/marshal/`](plugins/marshal/)) serves three agents from this repository's marketplace. Use either the plugin or `npx marshal-agents` for an agent, not both.
 
-**Gemini CLI extension (experimental, not tested live).** `gemini extensions install https://github.com/lb2002/marshal` installs the same hooks as `connect` does for Gemini; start the bridge from a clone with `node plugins/marshal/dist/cli.js start`.
+| Agent | Install | Status |
+|---|---|---|
+| Claude Code (CLI, IDEs, Claude desktop app) | `/plugin marketplace add lb2002/marshal`, then `/plugin install marshal@marshal`; "connect Marshal" starts the bridge | tested with a simulated headset |
+| Muse 1.4.15+ | `muse plugins marketplace add marshal https://github.com/lb2002/marshal`, `muse plugins install marshal@marshal`, `muse plugins approve marshal` | installed and hook run checked with Muse itself |
+| Codex | `codex plugin marketplace add lb2002/marshal`, `codex plugin add marshal@marshal`, trust the hooks in `/hooks` | installs; not tried in a live session |
+| Gemini CLI | `gemini extensions install https://github.com/lb2002/marshal` | experimental, not tried live |
+| OpenCode | `npx marshal-agents` sets up a local OpenCode plugin | experimental, not tried live |
 
 ## What is in this repository
 
@@ -53,7 +55,7 @@ node dist/cli.js connect
 |---|---|
 | [`bridge/`](bridge/) | The PC bridge (Node.js, TypeScript, one dependency: `ws`). CLI, hooks for four agents, risk classifier, impact analysis, halt, pairing. Full reference in [`bridge/README.md`](bridge/README.md). |
 | [`quest/`](quest/) | The headset app (Unity 6000.6, OpenXR, Meta XR SDK 209: hand tracking, passthrough, spatial anchors, MR Utility Kit). |
-| [`plugins/marshal/`](plugins/marshal/) | The Claude Code plugin, generated from the bridge by [`scripts/build-plugins.mjs`](scripts/build-plugins.mjs). |
+| [`plugins/marshal/`](plugins/marshal/) | The plugin for Claude Code, Muse and Codex, generated from the bridge by [`scripts/build-plugins.mjs`](scripts/build-plugins.mjs). |
 | [`demo/`](demo/) | The anonymised recorded session behind the tour and the demo. |
 | [`docs/`](docs/) | Setup, design renders, research notes on the hook formats of the four agents. |
 

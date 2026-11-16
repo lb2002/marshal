@@ -1,6 +1,6 @@
 {
   "name": "marshal",
-  "description": "Marshal: supervise Claude Code from a Meta Quest 3 and approve requests with your hands.",
+  "description": "Marshal: supervise your coding agents from a Meta Quest 3 and approve their requests with your hands.",
   "owner": {
     "name": "Linus Baumberger",
     "url": "https://github.com/lb2002"
@@ -9,7 +9,7 @@
     {
       "name": "marshal",
       "source": "./plugins/marshal",
-      "description": "Sends your Claude Code sessions to the Marshal headset app and lets you approve or deny their permission requests there."
+      "description": "Sends your agent sessions to the Marshal headset app and lets you approve or deny their permission requests there. Works in Claude Code, Muse and Codex."
     }
   ]
 }

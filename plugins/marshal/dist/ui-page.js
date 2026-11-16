@@ -130,10 +130,12 @@ footer p { font-size: 14px; color: var(--dim); }
 <script>
 (function () {
   "use strict";
-  var key = new URLSearchParams(location.search).get("k") || "";
-  var q = "?k=" + encodeURIComponent(key);
+  // The key in the address worked once, for loading this page; from now on a cookie set by that load counts.
+  // Drop the key from the address bar and history: it is spent.
+  try { history.replaceState(null, "", location.pathname); } catch (e) { /* not important */ }
+  var q = "";
   var $ = function (id) { return document.getElementById(id); };
-  var SOURCES = { claude: "Claude Code", muse: "Muse", codex: "Codex CLI", gemini: "Gemini CLI" };
+  var SOURCES = { claude: "Claude Code", muse: "Muse", codex: "Codex CLI", gemini: "Gemini CLI", opencode: "OpenCode" };
   var STATES = {
     working: ["Working", "go"], reading: ["Reading", "go"], editing: ["Editing", "go"], testing: ["Running tests", "go"],
     blocked: ["Waiting for approval", "wait"], waiting: ["Waiting for input", "wait"], done: ["Done", ""], failed: ["Failed", "stop"]
@@ -260,7 +262,7 @@ footer p { font-size: 14px; color: var(--dim); }
   }
 
   function poll() {
-    fetch("/ui/state" + q, { cache: "no-store", credentials: "omit" })
+    fetch("/ui/state" + q, { cache: "no-store", credentials: "same-origin" })
       .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
       .then(render, lost);
   }
@@ -269,7 +271,7 @@ footer p { font-size: 14px; color: var(--dim); }
     if (busy) return;
     busy = true;
     $("new-code").disabled = true;
-    fetch("/ui/code" + q, { method: "POST", cache: "no-store", credentials: "omit" })
+    fetch("/ui/code" + q, { method: "POST", cache: "no-store", credentials: "same-origin" })
       .then(function (r) { if (!r.ok) throw new Error(String(r.status)); return r.json(); })
       .then(render, lost)
       .then(function () { busy = false; $("new-code").disabled = false; });
