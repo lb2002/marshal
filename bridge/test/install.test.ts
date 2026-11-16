@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { homedir } from "node:os";
-import { mkdirSync, symlinkSync, writeFileSync, readFileSync } from "node:fs";
+import { mkdirSync, symlinkSync, writeFileSync, readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { buildHookSettings, mergeIntoProjectSettings, checkProjectDir, removeLotseHooks, parseSettingsText, writeProjectSettings } from "../src/install.js";
 import { tempDir } from "./tmp.js";
@@ -191,7 +191,7 @@ describe("checkProjectDir", () => {
     } catch {
       ctx.skip();
     }
-    expect(checkProjectDir(proj, join(tmp, "home"), (p) => p.length > 0)).toMatch(/symlink/i);
+    expect(checkProjectDir(proj, join(tmp, "home"), (p) => existsSync(p))).toMatch(/symlink/i);
   });
   it("writeProjectSettings refuses a symlinked settings.json and leaves the target alone", (ctx) => {
     const proj = join(tmp, "proj2");

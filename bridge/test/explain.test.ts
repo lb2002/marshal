@@ -602,10 +602,11 @@ describe("findClaude and explainMode", () => {
     touch("claude.exe", 0o644);
     expect(findClaude({ PATH: dir }, "win32")).toBe(join(dir, "claude.exe"));
   });
-  it("skips PATH entries that are not absolute", () => {
+  it("skips PATH entries that are not absolute", (ctx) => {
     touch("claude.exe", 0o644);
     const rel = relative(process.cwd(), dir);
-    expect(isAbsolute(rel)).toBe(false);
+    // The temp folder can sit on another drive than the working folder (CI runners): then no relative path exists.
+    if (isAbsolute(rel)) ctx.skip();
     expect(findClaude({ PATH: rel }, "win32")).toBeNull();
     expect(findClaude({ PATH: `${rel};${dir}` }, "win32")).toBe(join(dir, "claude.exe"));
   });
