@@ -23,7 +23,7 @@ export function hostFlag(v) {
     }
 }
 export function parseConnectArgs(args) {
-    const { pos, flags } = parseArgs(args, ["project", "tool", "transport", "budget", "explain", "host"], ["temporary", "no-qr"]);
+    const { pos, flags } = parseArgs(args, ["project", "tool", "transport", "budget", "explain", "host"], ["temporary", "no-qr", "no-browser"]);
     if (pos.length > 0)
         throw new UsageError(`unexpected argument ${pos[0]}`);
     if (typeof flags.project !== "string")
@@ -37,7 +37,7 @@ export function parseConnectArgs(args) {
         throw new UsageError("--transport must be command or http");
     if (transport === "http" && tool !== "claude")
         throw new UsageError("--transport http is only for --tool claude");
-    const out = { project: flags.project, tool: tool, transport, temporary: flags.temporary === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true };
+    const out = { project: flags.project, tool: tool, transport, temporary: flags.temporary === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true, noBrowser: flags["no-browser"] === true };
     if (flags.explain !== undefined)
         out.explain = flags.explain;
     const host = hostFlag(flags.host);
@@ -57,10 +57,10 @@ function globalTools(tool) {
     return { tools: [t], explicit: true };
 }
 export function parseConnectAllArgs(args) {
-    const { pos, flags } = parseArgs(args, ["tool", "budget", "explain", "host"], ["all", "yes", "keep-muse", "no-qr"]);
+    const { pos, flags } = parseArgs(args, ["tool", "budget", "explain", "host"], ["all", "yes", "keep-muse", "no-qr", "no-browser"]);
     if (pos.length > 0)
         throw new UsageError(`unexpected argument ${pos[0]}`);
-    const out = { ...globalTools(flags.tool), yes: flags.yes === true, keepMuse: flags["keep-muse"] === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true };
+    const out = { ...globalTools(flags.tool), yes: flags.yes === true, keepMuse: flags["keep-muse"] === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true, noBrowser: flags["no-browser"] === true };
     if (flags.explain !== undefined)
         out.explain = flags.explain;
     const host = hostFlag(flags.host);

@@ -37,6 +37,9 @@ import { ENFORCEMENT, HALT_MESSAGE, RELEASE_WORDS, PRE_TOOL_HEADER, PRE_TOOL_HEA
 import { removeHaltMarker, writeHaltMarker } from "./halt-marker.js";
 import type { Enforcement } from "./halt.js";
 import { PRODUCT_NAME } from "./product.js";
+import { pairingPayload } from "./pair-qr.js";
+import { encodeQr, renderQrSvg } from "./qr.js";
+import { UI_PAGE } from "./ui-page.js";
 
 export interface ServerOptions {
   httpPort: number;
@@ -95,7 +98,56 @@ export interface ServerOptions {
   planLogIntervalMs?: number;
   /** Plan state (tracker, rate limit, Codex log watch) of a session without events for this long is dropped; default 30 min. */
   planIdleMs?: number;
+  /**
+   * The local status page (`GET /ui`, `GET /ui/state`, `POST /ui/code`, ui-page.ts): on only when given (`connect`
+   * and `start`; never tests by default or `pack`). `key` (the `k` query parameter) stands in for the ingest token,
+   * which the browser does not have; `view` adds what only the CLI knows.
+   */
+  ui?: { key: string; view: () => UiView };
+  /** Called when the status page issued a fresh pairing code (the terminal then shows it as on Enter). */
+  onCodeReplaced?: (code: string) => void;
 }
+
+/** What the CLI adds to the status page's state. */
+export interface UiView {
+  version: string;
+  /** LAN addresses, the QR code's host first. */
+  addresses: string[];
+  /** The address in the pairing QR code; null: no QR code. */
+  qrHost: string | null;
+  explain: "on" | "off";
+  /** What `connect` set up, for the page. */
+  tools?: { name: string; status: string }[];
+}
+
+/** `GET /ui/state`. Never carries the ingest token or the session token. */
+export interface UiState {
+  version: string;
+  paired: boolean;
+  /** The current pairing code, only while it can still be used. */
+  code: string | null;
+  codeExpiresAt: number | null;
+  wsPort: number;
+  addresses: string[];
+  qrHost: string | null;
+  /** The pairing QR code as SVG markup (payload exactly as pair-qr.ts); null without a code or a host. */
+  qrSvg: string | null;
+  halted: boolean;
+  pendingRequests: number;
+  agents: { name: string; source: string; state: string }[];
+  explain: "on" | "off";
+  tools: { name: string; status: string }[];
+}
+
+const UI_PATHS = new Set(["/ui", "/ui/state", "/ui/code"]);
+const UI_CSP = "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; connect-src 'self'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'";
+const UI_HEADERS = {
+  "Cache-Control": "no-store",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "no-referrer",
+  "X-Content-Type-Options": "nosniff",
+  "Content-Security-Policy": UI_CSP,
+};
 
 export interface ServerHandle {
   close(): Promise<void>;
@@ -157,6 +209,7 @@ export async function startServer(opts: ServerOptions): Promise<ServerHandle> {
   let codeExpiresAt = now() + CODE_TTL_MS;
   let sessionToken: string | null = null;
   let httpPort = 0;
+  let wsPort = 0;
   let pairedOnce = false;
   const broker = new PermissionBroker({
     holdMs: opts.holdMs,
@@ -555,9 +608,89 @@ export async function startServer(opts: ServerOptions): Promise<ServerHandle> {
     return 0;
   }
 
+  // ---- local status page (ui-page.ts) ----
+
+  /** A fresh single-use code; the previous one stops working. Shared by newPairingCode() and POST /ui/code. */
+  function issueCode(): string {
+    pairingCode = String(randomInt(0, 1_000_000)).padStart(6, "0");
+    codeExpiresAt = now() + CODE_TTL_MS;
+    return pairingCode;
+  }
+
+  function uiState(view: UiView): UiState {
+    const code = pairingCode !== null && now() < codeExpiresAt ? pairingCode : null;
+    let qrSvg: string | null = null;
+    if (code !== null && view.qrHost !== null) {
+      try {
+        qrSvg = renderQrSvg(encodeQr(pairingPayload(view.qrHost, wsPort, code)));
+      } catch {
+        qrSvg = null; // not an IPv4 host: no QR code, the address and the code still show
+      }
+    }
+    return {
+      version: view.version,
+      paired: headsetConnected(),
+      code,
+      codeExpiresAt: code === null ? null : codeExpiresAt,
+      wsPort,
+      addresses: [...view.addresses],
+      qrHost: view.qrHost,
+      qrSvg,
+      halted: haltSince !== null,
+      pendingRequests: broker.pending().length,
+      agents: pipeline.snapshot().agents.map((a) => ({ name: a.name, source: a.source, state: a.status })),
+      explain: view.explain,
+      tools: (view.tools ?? []).map((t) => ({ name: t.name, status: t.status })),
+    };
+  }
+
+  /**
+   * `/ui`, `/ui/state`, `/ui/code`. A wrong or missing key looks exactly like an unknown path (404). Then the Host must
+   * be this bridge by name (DNS rebinding), an Origin, when sent, must be this page's own, and only the one method per
+   * route is served. No CORS headers: another site can neither read these answers nor send the key.
+   */
+  function handleUi(req: IncomingMessage, res: ServerResponse, urlPath: string, ui: NonNullable<ServerOptions["ui"]>): void {
+    const k = new URLSearchParams((req.url ?? "").split("?")[1] ?? "").get("k");
+    if (k === null || !safeEqual(k, ui.key)) return reply(res, 404, { error: "not-found" });
+    const host = req.headers.host;
+    if (host !== `127.0.0.1:${httpPort}` && host !== `localhost:${httpPort}`) return reply(res, 403, { error: "rejected" });
+    const origin = req.headers.origin;
+    if (origin !== undefined && origin !== `http://127.0.0.1:${httpPort}` && origin !== `http://localhost:${httpPort}`) {
+      return reply(res, 403, { error: "rejected" });
+    }
+    const method = urlPath === "/ui/code" ? "POST" : "GET";
+    if (req.method !== method) {
+      res.writeHead(405, { ...UI_HEADERS, Allow: method, "Content-Type": "application/json" });
+      res.end(JSON.stringify({ error: "method-not-allowed" }));
+      return;
+    }
+    if (urlPath === "/ui") {
+      res.writeHead(200, { ...UI_HEADERS, "Content-Type": "text/html; charset=utf-8", "Content-Length": Buffer.byteLength(UI_PAGE) });
+      res.end(UI_PAGE);
+      return;
+    }
+    if (urlPath === "/ui/code") {
+      const code = issueCode();
+      try {
+        opts.onCodeReplaced?.(code);
+      } catch {
+        /* an observer must not break the page */
+      }
+    }
+    const body = JSON.stringify(uiState(ui.view()));
+    res.writeHead(200, { ...UI_HEADERS, "Content-Type": "application/json", "Content-Length": Buffer.byteLength(body) });
+    res.end(body);
+  }
+
   const httpServer: Server = createServer(async (req, res) => {
     const urlPath = (req.url ?? "").split("?")[0];
     try {
+      if (opts.ui !== undefined && UI_PATHS.has(urlPath)) {
+        // The body of /ui/code is never read; the key is the only credential (no X-Lotse-Token in a browser).
+        req.resume();
+        handleUi(req, res, urlPath, opts.ui);
+        return;
+      }
       const isReply = urlPath === "/reply" && req.method === "GET";
       if (!isReply && (req.method !== "POST" || (urlPath !== "/ev" && urlPath !== "/perm" && urlPath !== "/status"))) {
         req.resume();
@@ -949,6 +1082,7 @@ export async function startServer(opts: ServerOptions): Promise<ServerHandle> {
     throw failed.reason;
   }
   httpPort = (httpServer.address() as AddressInfo).port;
+  wsPort = (wss.address() as AddressInfo).port;
   // After listening, a late server error is logged in one line and never crashes the bridge.
   const logError = (what: string) => (err: Error) => {
     console.error(`lotse: ${what} error: ${String(err?.message ?? err).split(/\r?\n/)[0]}`);
@@ -974,15 +1108,11 @@ export async function startServer(opts: ServerOptions): Promise<ServerHandle> {
 
   return {
     httpPort,
-    wsPort: (wss.address() as AddressInfo).port,
+    wsPort,
     httpHost: HTTP_HOST,
     wsHost: WS_HOST,
     inject,
-    newPairingCode() {
-      pairingCode = String(randomInt(0, 1_000_000)).padStart(6, "0");
-      codeExpiresAt = now() + CODE_TTL_MS;
-      return pairingCode;
-    },
+    newPairingCode: issueCode,
     async close() {
       closed = true;
       if (haltReminder) clearInterval(haltReminder);

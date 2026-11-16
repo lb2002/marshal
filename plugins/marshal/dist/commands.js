@@ -1,11 +1,13 @@
 // The CLI commands (cli.ts dispatches here for everything except `hook`).
 import { randomBytes, randomInt } from "node:crypto";
-import { existsSync, mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
 import { stableCliFile } from "./runtime-home.js";
 import { dirname, join, resolve } from "node:path";
 import { createInterface } from "node:readline";
 import { CODE_TTL_MS, startServer } from "./server.js";
+import { openBrowser, shouldOpenBrowser } from "./open-browser.js";
+import { TOOL_NAME } from "./install-global.js";
 import { Recorder, readRecording } from "./recorder.js";
 import { replay } from "./replay.js";
 import { buildPack, readOverridesFile } from "./pack.js";
@@ -30,10 +32,10 @@ import { QrScreen } from "./qr-screen.js";
 const HTTP_PORT = 47820;
 const WS_PORT = 47821;
 const USAGE = `Usage:
-  lotse connect [--all] [--tool claude|muse|codex|gemini|all] [--yes] [--keep-muse] [--budget 15] [--explain cli|off] [--no-qr]
-  lotse connect --project <dir> [--tool claude|muse|codex|gemini] [--transport command|http] [--temporary] [--budget 15] [--explain cli|off] [--no-qr]
+  lotse connect [--all] [--tool claude|muse|codex|gemini|all] [--yes] [--keep-muse] [--budget 15] [--explain cli|off] [--no-qr] [--no-browser]
+  lotse connect --project <dir> [--tool claude|muse|codex|gemini] [--transport command|http] [--temporary] [--budget 15] [--explain cli|off] [--no-qr] [--no-browser]
   lotse disconnect [--all] [--tool claude|muse|codex|gemini|all] [--yes]
-  lotse start [--record <file> [--force]] [--budget 15] [--explain cli|off] [--no-qr]
+  lotse start [--record <file> [--force]] [--budget 15] [--explain cli|off] [--no-qr] [--no-browser]
   lotse demo <recording.ndjson> [--speed 1] [--root <dir>] [--budget 15] [--explain cli|off] [--no-qr]
   lotse pack <recording.ndjson> -o <pack.json> [--overrides <file>] [--budget 15] [--explain cli|off]
   lotse statusline                      (reads statusline JSON on stdin)
@@ -138,8 +140,48 @@ function codeUsedHook() {
     let f = () => { };
     return { fire: () => f(), set: (g) => (f = g) };
 }
-async function printConnectInfo(code, fromEnv, noQr, host, before = []) {
+/** This build's version (package.json next to dist/, also in the plugin); "unknown" when it cannot be read. */
+function bridgeVersion() {
+    try {
+        const v = JSON.parse(readFileSync(new URL("../package.json", import.meta.url), "utf8")).version;
+        return typeof v === "string" ? v : "unknown";
+    }
+    catch {
+        return "unknown";
+    }
+}
+function statusPage(explainOn, tools) {
+    const key = randomBytes(16).toString("hex");
+    const url = `http://127.0.0.1:${HTTP_PORT}/ui?k=${key}`;
+    const version = bridgeVersion();
+    let addresses = [];
+    let qrHost = null;
+    let replaced = () => { };
+    let wantOpen = false;
+    const view = () => ({ version, addresses, qrHost, explain: explainOn ? "on" : "off", ...(tools ? { tools } : {}) });
+    return {
+        url,
+        options: { ui: { key, view }, onCodeReplaced: (code) => replaced(code) },
+        setPairing(v) {
+            addresses = v.ips;
+            qrHost = v.choice.host;
+        },
+        onReplaced(f) {
+            replaced = f;
+        },
+        announce(noBrowser) {
+            console.log(`Open in your browser: ${url}`);
+            wantOpen = shouldOpenBrowser({ noBrowser, isTTY: process.stdout.isTTY === true, env: process.env });
+        },
+        open() {
+            if (wantOpen)
+                openBrowser(url);
+        },
+    };
+}
+async function printConnectInfo(code, fromEnv, noQr, host, before = [], page) {
     const view = await pairingView(noQr, host);
+    page?.setPairing(view);
     const qrShown = view.qrFor(code).length > 0;
     console.log(`Pairing code: ${code}  (single-use, expires after 5 minutes)`);
     if (view.ips.length === 0)
@@ -240,8 +282,9 @@ function haltConsole() {
     return { input: process.stdin, isTTY: process.stdin.isTTY === true };
 }
 /** The live bridge as `start` runs it (fixed ports, 90 s hold, the token, the optional explainer). */
-async function startLive(budget, explainer, token, code, onEvent, onCodeUsed) {
+async function startLive(budget, explainer, token, code, onEvent, onCodeUsed, page) {
     return startServer({
+        ...page?.options,
         onCodeUsed,
         httpPort: HTTP_PORT,
         wsPort: WS_PORT,
@@ -256,7 +299,7 @@ async function startLive(budget, explainer, token, code, onEvent, onCodeUsed) {
     });
 }
 async function cmdStart(args) {
-    const { pos, flags } = parseArgs(args, ["record", "budget", "explain", "host"], ["force", "no-qr"]);
+    const { pos, flags } = parseArgs(args, ["record", "budget", "explain", "host"], ["force", "no-qr", "no-browser"]);
     if (pos.length > 0)
         throw new UsageError(`unexpected argument ${pos[0]}`);
     const budget = parseBudget(flags.budget);
@@ -272,7 +315,8 @@ async function cmdStart(args) {
     let recorder = null;
     const code = newCode();
     const used = codeUsedHook();
-    const handle = await startLive(budget, explain.explainer, token, code, (e) => recorder?.write(e), used.fire);
+    const page = statusPage(explain.explainer !== undefined);
+    const handle = await startLive(budget, explain.explainer, token, code, (e) => recorder?.write(e), used.fire, page);
     // The recording file is only opened once the ports are bound.
     try {
         if (recFile)
@@ -283,10 +327,13 @@ async function cmdStart(args) {
         throw err;
     }
     console.log(`${PRODUCT_NAME} bridge listening (HTTP 127.0.0.1:${HTTP_PORT}, WS 0.0.0.0:${WS_PORT})`);
+    page.announce(flags["no-browser"] === true);
     explain.print();
-    const display = await printConnectInfo(code, fromEnv, flags["no-qr"] === true, host, recFile ? [`Recording to ${recFile}`] : []);
+    const display = await printConnectInfo(code, fromEnv, flags["no-qr"] === true, host, recFile ? [`Recording to ${recFile}`] : [], page);
     used.set(() => display.used());
+    page.onReplaced((c) => display.replace(c, 0));
     newCodeOnEnter(handle, display);
+    page.open();
     onShutdown(handle, async () => {
         explain.explainer?.abortAll();
         await recorder?.close();
@@ -325,7 +372,9 @@ async function cmdConnect(args) {
         budget: a.budget,
         explain,
         noQr: a.noQr,
+        noBrowser: a.noBrowser,
         host: a.host,
+        tools: [{ name: TOOL_NAME[a.tool], status: installed.changed ? "hooks installed in this project" : "hooks already in this project" }],
         banner: (code, ips, qr) => connectBanner({ code, ips, wsPort: WS_PORT, project: place.dir, tool: a.tool, temporary: a.temporary, ...qr }),
         onStartFailed: () => void removeIfTemporary(),
         onStop: async () => {
@@ -344,9 +393,10 @@ async function runConnected(o) {
     const { token, fromEnv } = loadOrCreateToken();
     const code = newCode();
     const used = codeUsedHook();
+    const page = statusPage(o.explain.explainer !== undefined, o.tools);
     let handle;
     try {
-        handle = await startLive(o.budget, o.explain.explainer, token, code, undefined, used.fire);
+        handle = await startLive(o.budget, o.explain.explainer, token, code, undefined, used.fire, page);
     }
     catch (err) {
         try {
@@ -358,19 +408,23 @@ async function runConnected(o) {
         throw err;
     }
     console.log(`${PRODUCT_NAME} bridge listening (HTTP 127.0.0.1:${HTTP_PORT}, WS 0.0.0.0:${WS_PORT})`);
+    page.announce(o.noBrowser);
     o.explain.print();
     // Hooks of sessions without LOTSE_TOKEN (the Claude desktop app) read the token file.
     if (fromEnv && readTokenFile() !== token) {
         console.log("Warning: LOTSE_TOKEN in this shell is not the content of ~/.lotse/token. Hooks without LOTSE_TOKEN (Claude desktop app) would be refused.");
     }
     const view = await pairingView(o.noQr, o.host);
+    page.setPairing(view);
     const qrShown = view.qrFor(code).length > 0;
     console.log("");
     console.log(o.banner(code, view.ips, { qrShown, qrHost: qrShown && view.ips.length > 1 ? view.choice.host : null, noQrWhy: view.noQrWhy }));
     const display = pairingDisplay(view);
     display.show(code); // the QR block goes below the frame, as the last output
     used.set(() => display.used());
+    page.onReplaced((c) => display.replace(c, 0));
     newCodeOnEnter(handle, display);
+    page.open();
     onShutdown(handle, async () => {
         o.explain.explainer?.abortAll();
         await o.onStop?.();
@@ -423,7 +477,12 @@ async function cmdConnectAll(args) {
         budget: a.budget,
         explain,
         noQr: a.noQr,
+        noBrowser: a.noBrowser,
         host: a.host,
+        tools: [
+            ...r.tools.map((t) => ({ name: TOOL_NAME[t], status: t === "muse" && removeMuse ? "hooks installed until you stop" : "hooks installed" })),
+            ...(r.museSkipped ? [{ name: TOOL_NAME.muse, status: "connect it per project" }] : []),
+        ],
         banner: (code, ips, qr) => connectBanner({ code, ips, wsPort: WS_PORT, project: "", tool: r.tools[0] ?? "claude", temporary: false, global: r.tools, museSkipped: r.museSkipped, ...qr }),
         onStartFailed: removeMuse ? removeMusePlugin : undefined,
         onStop: removeMuse ? removeMusePlugin : undefined,
