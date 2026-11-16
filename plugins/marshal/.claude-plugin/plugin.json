@@ -16,5 +16,8 @@
   },
   "homepage": "https://github.com/lb2002/marshal",
   "repository": "https://github.com/lb2002/marshal",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "privacyPolicyUrl": "https://github.com/lb2002/marshal/blob/main/PRIVACY.md",
+  "supportUrl": "https://github.com/lb2002/marshal/issues",
+  "documentationUrl": "https://github.com/lb2002/marshal/blob/main/plugins/marshal/README.md"
 }
