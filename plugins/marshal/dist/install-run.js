@@ -3,10 +3,12 @@
 //
 // Installing is idempotent: hooks that are exactly Lotse's own (of this CLI, either Claude transport) are
 // replaced; any other existing hooks (or a foreign Claude statusLine) are refused unless forced, as before.
+// OpenCode has a plugin file instead of hooks; its project install lives in opencode-install.ts.
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { buildHookSettings, checkTargetDir, claudeTarget, mergeIntoProjectSettings, parseSettingsText, removeHooksWhere, removeLotseHooks, writeTargetFile, } from "./install.js";
 import { TOOL_TARGETS, buildToolHooks, mergeToolHooks, removeToolHooks } from "./install-tools.js";
+import { installOpenCodeProject, uninstallOpenCodePlan, uninstallOpenCodeProject } from "./opencode-install.js";
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export function targetFor(tool) {
     return tool === "claude" ? claudeTarget() : TOOL_TARGETS[tool];
@@ -49,10 +51,13 @@ function prepare(p) {
     return { file, target, existing: parsed.value };
 }
 export function installHooks(p, transport, force) {
+    if (p.tool === "opencode")
+        return installOpenCodeProject(p, force);
+    const tool = p.tool;
     const prep = prepare(p);
     if ("error" in prep)
         return { ok: false, error: prep.error };
-    const plan = planHooks(prep.existing, p.tool, p.bridgeCmd, transport, force);
+    const plan = planHooks(prep.existing, tool, p.bridgeCmd, transport, force);
     if ("error" in plan) {
         const what = p.tool === "claude" ? "hooks or a statusLine" : "hooks";
         return { ok: false, error: `${prep.file} already has ${what}; use --force to replace them` };
@@ -66,20 +71,26 @@ export function installHooks(p, transport, force) {
 }
 /** What uninstallHooks would write, without writing: the file, its settings now and after (null: no file). */
 export function uninstallPlan(p) {
+    if (p.tool === "opencode")
+        return uninstallOpenCodePlan(p);
+    const tool = p.tool;
     const prep = prepare(p);
     if ("error" in prep)
         return { ok: false, error: prep.error };
     if (prep.existing === null)
         return { ok: true, file: prep.file, before: null, after: null };
-    return { ok: true, file: prep.file, before: prep.existing, after: withoutOurs(prep.existing, p.tool, p.bridgeCmd) };
+    return { ok: true, file: prep.file, before: prep.existing, after: withoutOurs(prep.existing, tool, p.bridgeCmd) };
 }
 export function uninstallHooks(p) {
+    if (p.tool === "opencode")
+        return uninstallOpenCodeProject(p);
+    const tool = p.tool;
     const prep = prepare(p);
     if ("error" in prep)
         return { ok: false, error: prep.error };
     if (prep.existing === null)
         return { ok: true, file: prep.file, changed: false, existed: false };
-    const cleaned = withoutOurs(prep.existing, p.tool, p.bridgeCmd);
+    const cleaned = withoutOurs(prep.existing, tool, p.bridgeCmd);
     if (same(cleaned, prep.existing))
         return { ok: true, file: prep.file, changed: false, existed: true };
     const problem = writeTargetFile(resolve(p.dir), p.homeDir, JSON.stringify(cleaned, null, 2) + "\n", prep.target);

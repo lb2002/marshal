@@ -291,7 +291,7 @@ function museRecord(o: Obj): Raw[] {
   return out.map((r, i) => ({ ...r, t, ...(id ? { key: `${id}:${i}` } : {}) }));
 }
 
-const PARSERS: Record<AgentSource, (o: Obj, state?: FeedContext["state"]) => Raw[]> = { claude: claudeRecord, codex: codexRecord, gemini: geminiRecord, muse: museRecord };
+const PARSERS: Record<AgentSource, (o: Obj, state?: FeedContext["state"]) => Raw[]> = { claude: claudeRecord, codex: codexRecord, gemini: geminiRecord, muse: museRecord, opencode: () => [] };
 
 /** Redact the whole text, shorten paths, cut to one line of at most 400 characters, redact the cut again. */
 function shown(text: string, homeDir: string): string {

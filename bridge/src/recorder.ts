@@ -77,7 +77,7 @@ function eventProblem(o: Record<string, unknown>): string | null {
   for (const [k, v] of Object.entries(o)) if (typeof v === "number" && !Number.isFinite(v)) return `${k} must be a finite number`;
   if (!AGENT_EVENT_KINDS.has(o.kind)) return `kind ${JSON.stringify(o.kind).slice(0, 40)} is unknown`;
   for (const k of STRING_FIELDS) if (o[k] !== undefined && typeof o[k] !== "string") return `${k} must be a string`;
-  if (o.source !== undefined && !(typeof o.source === "string" && AGENT_SOURCES.has(o.source))) return "source must be claude, muse, codex or gemini";
+  if (o.source !== undefined && !(typeof o.source === "string" && AGENT_SOURCES.has(o.source))) return "source must be claude, muse, codex, gemini or opencode";
   for (const k of NUMBER_FIELDS) {
     if (o[k] !== undefined && !(typeof o[k] === "number" && Number.isFinite(o[k]))) return `${k} must be a number`;
   }

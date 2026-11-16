@@ -277,7 +277,7 @@ function museRecord(o) {
     const id = str(o.id);
     return out.map((r, i) => ({ ...r, t, ...(id ? { key: `${id}:${i}` } : {}) }));
 }
-const PARSERS = { claude: claudeRecord, codex: codexRecord, gemini: geminiRecord, muse: museRecord };
+const PARSERS = { claude: claudeRecord, codex: codexRecord, gemini: geminiRecord, muse: museRecord, opencode: () => [] };
 /** Redact the whole text, shorten paths, cut to one line of at most 400 characters, redact the cut again. */
 function shown(text, homeDir) {
     return redactSecrets(cleanText(shortenAbsolutePaths(redactSecrets(text.slice(0, MAX_RAW)), homeDir), MAX_FEED_TEXT));

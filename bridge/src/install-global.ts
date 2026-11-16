@@ -1,5 +1,5 @@
 // `lotse connect --all` / `lotse disconnect --all`: the Lotse hooks in the user-level files of Claude Code,
-// Muse, Codex CLI and Gemini CLI, so every session of the user reaches the headset. Decided on 12 Nov 2026.
+// Muse, Codex CLI, Gemini CLI and OpenCode, so every session of the user reaches the headset. Decided on 12 Nov 2026.
 // for this explicit mode only; project mode (`--project`) keeps its guards and never writes these files.
 //
 // - Only Lotse's own entries are added, next to everything else (foreign hooks in the same events stay).
@@ -12,12 +12,15 @@
 //   (see README).
 // - Muse is never written into its settings file (a malformed user settings file breaks every Muse session):
 //   it gets a user plugin that Muse itself validates first (muse-plugin.ts), or it is skipped.
+// - OpenCode has no hook settings: it gets Marshal's plugin file `plugins/marshal/index.js` in its user config
+//   folder (opencode-install.ts), planned, listed, backed up and written like the settings files.
 // Nothing here reads the real home or env on its own: the CLI passes them in (tests pass a fake HOME).
 
 import { copyFileSync, constants as fsConstants, existsSync, lstatSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { basename, dirname, join, resolve } from "node:path";
 import { buildHookSettings, legacyBridgeCmds, parseSettingsText } from "./install.js";
-import { MUSE_EVENTS, buildToolHooks } from "./install-tools.js";
+import { MUSE_EVENTS, buildToolHooks, type JsonHookTool } from "./install-tools.js";
+import { looksLikeOurs, opencodeConfigDir, opencodePluginText, pluginEntry, pluginFileIn, readPluginFile, removeEmptyPluginDir } from "./opencode-install.js";
 import { entryChanges, formatChanges } from "./settings-diff.js";
 import { PRODUCT_NAME } from "./product.js";
 import type { InstallTool } from "./install-run.js";
@@ -26,8 +29,8 @@ import { MUSE_NO_GLOBAL, MUSE_PLUGIN_ID, installedBundleText, manifestText, muse
 type Obj = Record<string, unknown>;
 const isObj = (v: unknown): v is Obj => typeof v === "object" && v !== null && !Array.isArray(v);
 
-export const GLOBAL_TOOLS: readonly InstallTool[] = ["claude", "muse", "codex", "gemini"];
-export const TOOL_NAME: Record<InstallTool, string> = { claude: "Claude Code", muse: "Muse", codex: "Codex CLI", gemini: "Gemini CLI" };
+export const GLOBAL_TOOLS: readonly InstallTool[] = ["claude", "muse", "codex", "gemini", "opencode"];
+export const TOOL_NAME: Record<InstallTool, string> = { claude: "Claude Code", muse: "Muse", codex: "Codex CLI", gemini: "Gemini CLI", opencode: "OpenCode" };
 
 /** What a session that is already running needs before the new user-level hooks reach it. */
 export const GLOBAL_TRUST_STEP: Record<InstallTool, string> = {
@@ -35,13 +38,14 @@ export const GLOBAL_TRUST_STEP: Record<InstallTool, string> = {
   muse: `Muse: run "muse plugins approve lotse" once (until then the ${PRODUCT_NAME} hooks show review_needed), then start new sessions.`,
   codex: `Codex CLI: open /hooks once and approve the ${PRODUCT_NAME} hooks.`,
   gemini: `Gemini CLI: work in a trusted folder; for Gemini, ${PRODUCT_NAME} can only deny.`,
+  opencode: "OpenCode: it loads plugins only when it starts, so restart OpenCode.",
 };
 
 const MUSE_WARNING =
   `Warning for Muse: while the ${PRODUCT_NAME} plugin is installed and ${PRODUCT_NAME} is not running, Muse denies every approval. To switch it off: lotse disconnect --all --tool muse`;
 
-/** The tool's own user config folder (with the env overrides the tools read). */
-function configDir(tool: InstallTool, home: string, env: NodeJS.ProcessEnv): string {
+/** The tool's own user config folder (with the env overrides the tools read); a tool counts as found when it exists. */
+export function configDir(tool: InstallTool, home: string, env: NodeJS.ProcessEnv): string {
   switch (tool) {
     case "claude":
       return env.CLAUDE_CONFIG_DIR ? resolve(env.CLAUDE_CONFIG_DIR) : join(home, ".claude");
@@ -52,21 +56,24 @@ function configDir(tool: InstallTool, home: string, env: NodeJS.ProcessEnv): str
       return env.CODEX_HOME ? resolve(env.CODEX_HOME) : join(home, ".codex");
     case "gemini":
       return join(env.GEMINI_CLI_HOME ? resolve(env.GEMINI_CLI_HOME) : home, ".gemini");
+    case "opencode":
+      return opencodeConfigDir(home, env);
   }
 }
 
-/** The user-level file that holds the tool's hooks. */
+/** The user-level file that holds the tool's hooks (OpenCode: Marshal's plugin file). */
 export function globalFile(tool: InstallTool, home: string, env: NodeJS.ProcessEnv): string {
+  if (tool === "opencode") return pluginFileIn(configDir(tool, home, env));
   return join(configDir(tool, home, env), tool === "codex" ? "hooks.json" : "settings.json");
 }
 
 /** What Lotse writes for a tool (the same handlers as project mode; Claude with its statusLine). */
-function built(tool: InstallTool, bridgeCmd: string): { hooks: Record<string, Obj[]>; statusLine?: Obj } {
+function built(tool: "claude" | JsonHookTool, bridgeCmd: string): { hooks: Record<string, Obj[]>; statusLine?: Obj } {
   return (tool === "claude" ? buildHookSettings(bridgeCmd, "command") : buildToolHooks(tool, bridgeCmd)) as { hooks: Record<string, Obj[]>; statusLine?: Obj };
 }
 
 /** A file that does not exist yet starts as this (Muse requires `schema_version: 1`). */
-const skeleton = (tool: InstallTool): Obj => (tool === "muse" ? { schema_version: 1 } : {});
+const skeleton = (tool: "claude" | JsonHookTool): Obj => (tool === "muse" ? { schema_version: 1 } : {});
 
 /** JSON with sorted keys, for deep equality. */
 function canon(v: unknown): string {
@@ -77,7 +84,7 @@ function canon(v: unknown): string {
 const same = (a: unknown, b: unknown) => canon(a) === canon(b);
 
 /** Every handler Lotse installs for this tool, as canonical JSON (also in the earlier `node "<cli.js>"` spelling). */
-function ourHandlers(tool: InstallTool, bridgeCmd: string): Set<string> {
+function ourHandlers(tool: "claude" | JsonHookTool, bridgeCmd: string): Set<string> {
   const out = new Set<string>();
   for (const cmd of [bridgeCmd, ...legacyBridgeCmds(bridgeCmd)]) {
     for (const groups of Object.values(built(tool, cmd).hooks)) {
@@ -88,7 +95,7 @@ function ourHandlers(tool: InstallTool, bridgeCmd: string): Set<string> {
 }
 
 /** Copy of `existing` without Lotse's handlers; only groups, events and `hooks` emptied by that removal go too. */
-export function removeGlobal(existing: object, tool: InstallTool, bridgeCmd: string, keepStatusLine = false): object {
+export function removeGlobal(existing: object, tool: "claude" | JsonHookTool, bridgeCmd: string, keepStatusLine = false): object {
   const ours = ourHandlers(tool, bridgeCmd);
   const out: Obj = { ...(existing as Obj) };
   const statuses = [bridgeCmd, ...legacyBridgeCmds(bridgeCmd)].map((cmd) => built(tool, cmd).statusLine).filter((x) => x !== undefined);
@@ -124,7 +131,7 @@ export function removeGlobal(existing: object, tool: InstallTool, bridgeCmd: str
 }
 
 /** True when every Lotse group is already there (and Claude has some statusLine): nothing to write. */
-function complete(existing: Obj, tool: InstallTool, bridgeCmd: string): boolean {
+function complete(existing: Obj, tool: "claude" | JsonHookTool, bridgeCmd: string): boolean {
   const b = built(tool, bridgeCmd);
   if (b.statusLine && !("statusLine" in existing)) return false;
   if (!isObj(existing.hooks)) return false;
@@ -139,7 +146,7 @@ function complete(existing: Obj, tool: InstallTool, bridgeCmd: string): boolean 
  * The settings with Lotse's entries added after the foreign ones of each event (an older copy of ours is
  * replaced). A foreign statusLine stays. Refuses a `hooks` that is not an object of arrays. Pure.
  */
-export function mergeGlobal(existing: object | null, tool: InstallTool, bridgeCmd: string): { settings: object } | { error: string } {
+export function mergeGlobal(existing: object | null, tool: "claude" | JsonHookTool, bridgeCmd: string): { settings: object } | { error: string } {
   if (existing !== null) {
     const h = (existing as Obj).hooks;
     if (h !== undefined && !isObj(h)) return { error: "its hooks key is not an object" };
@@ -297,8 +304,14 @@ function plan(o: GlobalOpts, action: "install" | "remove"): { steps: Step[]; ski
   for (const tool of o.tools) {
     if (action === "install" && tool === "muse") continue;
     const file = globalFile(tool, o.home, o.env);
-    if (action === "install" && !o.explicit && !existsSync(dirname(file))) {
+    if (action === "install" && !o.explicit && !existsSync(configDir(tool, o.home, o.env))) {
       skipped.push(tool);
+      continue;
+    }
+    if (tool === "opencode") {
+      const s = planOpenCode(o, action);
+      if ("error" in s) return s;
+      steps.push(s);
       continue;
     }
     const st = readState(file);
@@ -326,6 +339,22 @@ function plan(o: GlobalOpts, action: "install" | "remove"): { steps: Step[]; ski
     steps.push({ tool, file, before: st, after: changed ? merged.settings : null, write: changed ? serialize(merged.settings, st.text) : null });
   }
   return { steps, skipped };
+}
+
+/**
+ * OpenCode: Marshal's plugin file. Install: created, or replaced when it is an older Marshal plugin (backed up by
+ * applySteps); any other file there is refused. Remove: deleted only when it is exactly this CLI's plugin.
+ */
+function planOpenCode(o: GlobalOpts, action: "install" | "remove"): Step | { error: string } {
+  const r = readPluginFile(configDir("opencode", o.home, o.env));
+  if ("error" in r) return { error: r.error };
+  const before: FileState = { file: r.file, text: r.text, value: null };
+  const wanted = opencodePluginText(o.bridgeCmd);
+  const none: Step = { tool: "opencode", file: r.file, before, after: null, write: null };
+  if (action === "remove") return r.text === wanted ? { ...none, after: {} } : none;
+  if (r.text === wanted) return none;
+  if (r.text !== null && !looksLikeOurs(r.text)) return { error: `${r.file} exists and is not ${PRODUCT_NAME}'s plugin; not touching it` };
+  return { ...none, after: { plugin: pluginEntry(r.file, wanted) }, write: wanted };
 }
 
 /**
@@ -473,6 +502,14 @@ function lookAlikes(value: Obj | null): boolean {
  * and an old status line included) and added (`+`), as canonical JSON (settings-diff.ts).
  */
 function listStep(o: GlobalOpts, s: Step): void {
+  if (s.tool === "opencode") {
+    const what = s.write === null ? "removed" : s.before.text === null ? "added" : `replaced (an older ${PRODUCT_NAME} plugin)`;
+    o.log(`  ${s.file}${s.write === null ? " (deleted)" : ""}`);
+    o.log(`    OpenCode: the ${PRODUCT_NAME} plugin is ${what}`);
+    if (s.before.text !== null) o.log(`      - plugin: ${JSON.stringify(pluginEntry(s.file, s.before.text))}`);
+    if (s.write !== null) o.log(`      + plugin: ${JSON.stringify(pluginEntry(s.file, s.write))}`);
+    return;
+  }
   const written = s.write === null ? null : s.after; // no text with a plan: the file is deleted
   const changes = entryChanges(s.before.value, written);
   o.log(`  ${s.file}${written === null ? ` (deleted: ${PRODUCT_NAME} created it and nothing else is in it)` : ""}`);
@@ -503,7 +540,7 @@ export async function connectAll(o: GlobalOpts): Promise<GlobalResult> {
   }
   let muse = planMuse(o);
   if (o.tools.includes("muse") && muse.kind === "absent") p.skipped.push("muse");
-  for (const t of p.skipped) o.log(`${TOOL_NAME[t]}: not found (${dirname(globalFile(t, o.home, o.env))} is missing), skipped.`);
+  for (const t of p.skipped) o.log(`${TOOL_NAME[t]}: not found (${configDir(t, o.home, o.env)} is missing), skipped.`);
   if (muse.kind === "skip") {
     o.err(`lotse: Muse: ${muse.reason}`);
     o.log(MUSE_NO_GLOBAL);
@@ -607,12 +644,14 @@ export async function disconnectAll(o: GlobalOpts): Promise<GlobalResult> {
     const r = removePlugin;
     const last = r ? { what: `removing Muse plugin "${MUSE_PLUGIN_ID}"`, run: () => r.remove(MUSE_PLUGIN_ID) } : undefined;
     if (!applySteps(steps.filter((s) => s.after !== null), o, last)) return { ok: false, error: "write failed" };
+    for (const s of steps) if (s.tool === "opencode" && s.after !== null) removeEmptyPluginDir(s.file);
     o.log(`${PRODUCT_NAME} hooks removed from:`);
     for (const s of steps.filter((x) => x.after !== null)) o.log(`  ${s.file}`);
     if (r) o.log(`  Muse plugin "${MUSE_PLUGIN_ID}"`);
   }
   for (const s of steps) {
-    if (lookAlikes((s.after ?? s.before.value) as Obj | null)) {
+    const ocLeft = s.tool === "opencode" && s.after === null && s.before.text !== null && looksLikeOurs(s.before.text);
+    if (ocLeft || lookAlikes((s.after ?? s.before.value) as Obj | null)) {
       o.log(`Note: ${s.file} still holds entries that look like ${PRODUCT_NAME}'s but do not exactly belong to this CLI (another path or another time limit?). Please check them yourself.`);
     }
   }

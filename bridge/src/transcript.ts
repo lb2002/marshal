@@ -27,6 +27,9 @@ export function transcriptRoots(source: AgentSource, homeDir: string, env: NodeJ
       return [join(homeDir, ".gemini", "tmp"), ...(env.GEMINI_CLI_HOME ? [join(resolve(env.GEMINI_CLI_HOME), ".gemini", "tmp")] : [])];
     case "muse":
       return [join(homeDir, ".local", "share", "muse", "sessions")];
+    case "opencode":
+      return []; // OpenCode keeps its sessions in a database, not in a transcript file
+
   }
 }
 

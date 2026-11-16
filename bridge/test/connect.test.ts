@@ -49,10 +49,10 @@ describe("connect --all / disconnect --all arguments", () => {
     expect(isAllMode(["--yes"])).toBe(true);
     expect(isAllMode(["--tool", "codex"])).toBe(true);
     expect(parseConnectAllArgs([])).toEqual(parseConnectAllArgs(["--all"]));
-    expect(parseConnectAllArgs(["--yes"])).toMatchObject({ yes: true, tools: ["claude", "muse", "codex", "gemini"] });
+    expect(parseConnectAllArgs(["--yes"])).toMatchObject({ yes: true, tools: ["claude", "muse", "codex", "gemini", "opencode"] });
   });
-  it("defaults to all four tools, asks, budget 15", () => {
-    expect(parseConnectAllArgs(["--all"])).toEqual({ tools: ["claude", "muse", "codex", "gemini"], explicit: false, yes: false, keepMuse: false, budget: 15, noQr: false, noBrowser: false });
+  it("defaults to all five tools, asks, budget 15", () => {
+    expect(parseConnectAllArgs(["--all"])).toEqual({ tools: ["claude", "muse", "codex", "gemini", "opencode"], explicit: false, yes: false, keepMuse: false, budget: 15, noQr: false, noBrowser: false });
     expect(parseConnectAllArgs(["--all", "--tool", "all"])).toMatchObject({ explicit: false });
   });
   it("takes --tool <one>, --yes, --budget and --explain", () => {
@@ -68,9 +68,9 @@ describe("connect --all / disconnect --all arguments", () => {
     expect(() => parseConnectAllArgs(args)).toThrow(UsageError);
   });
   it("disconnect needs --all and takes --tool", () => {
-    expect(parseDisconnectArgs(["--all"])).toEqual({ tools: ["claude", "muse", "codex", "gemini"], explicit: false, yes: false });
+    expect(parseDisconnectArgs(["--all"])).toEqual({ tools: ["claude", "muse", "codex", "gemini", "opencode"], explicit: false, yes: false });
     expect(parseDisconnectArgs(["--all", "--tool", "gemini", "--yes"])).toEqual({ tools: ["gemini"], explicit: true, yes: true });
-    expect(parseDisconnectArgs([])).toEqual({ tools: ["claude", "muse", "codex", "gemini"], explicit: false, yes: false });
+    expect(parseDisconnectArgs([])).toEqual({ tools: ["claude", "muse", "codex", "gemini", "opencode"], explicit: false, yes: false });
     expect(parseDisconnectArgs(["--tool", "codex"])).toEqual({ tools: ["codex"], explicit: true, yes: false });
     expect(() => parseDisconnectArgs(["--project", "p"])).toThrow(/uninstall-hooks/);
     expect(() => parseDisconnectArgs(["--all", "--project", "p"])).toThrow(UsageError);

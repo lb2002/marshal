@@ -46,7 +46,7 @@ export function parseConnectArgs(args: string[]): ConnectArgs {
   if (typeof flags.project !== "string") throw new UsageError("connect needs --project <dir>");
   const tool = flags.tool ?? "claude";
   if (tool !== "claude" && !(typeof tool === "string" && (HOOK_TOOLS as readonly string[]).includes(tool))) {
-    throw new UsageError("--tool must be claude, muse, codex or gemini");
+    throw new UsageError("--tool must be claude, muse, codex, gemini or opencode");
   }
   const transport = flags.transport ?? "command";
   if (transport !== "command" && transport !== "http") throw new UsageError("--transport must be command or http");
@@ -82,11 +82,11 @@ export interface ConnectAllArgs extends GlobalToolArgs {
 /** The global mode: `--all`, or no `--project` at all (`lotse connect` / `lotse disconnect` with no flags). */
 export const isAllMode = (args: string[]): boolean => args.includes("--all") || !args.includes("--project");
 
-/** `--tool claude|muse|codex|gemini|all`, default all. */
+/** `--tool claude|muse|codex|gemini|opencode|all`, default all. */
 function globalTools(tool: string | true | undefined): GlobalToolArgs {
   const t = tool ?? "all";
   if (t === "all") return { tools: [...GLOBAL_TOOLS], explicit: false };
-  if (typeof t !== "string" || !(GLOBAL_TOOLS as readonly string[]).includes(t)) throw new UsageError("--tool must be claude, muse, codex, gemini or all");
+  if (typeof t !== "string" || !(GLOBAL_TOOLS as readonly string[]).includes(t)) throw new UsageError("--tool must be claude, muse, codex, gemini, opencode or all");
   return { tools: [t as InstallTool], explicit: true };
 }
 

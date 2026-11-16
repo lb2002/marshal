@@ -33,6 +33,7 @@ export const APPROVAL_EVENT: Record<string, string> = {
   muse: "PermissionRequest",
   codex: "PermissionRequest",
   gemini: "BeforeTool",
+  opencode: "PermissionRequest",
 };
 
 /** True when `event` (the `--event` flag) is the approval event of `source`; Muse also spells it camelCase. */

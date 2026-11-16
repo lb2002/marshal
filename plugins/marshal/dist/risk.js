@@ -138,9 +138,10 @@ function classify(tool, input, cwd, ctx) {
     }
     if (Object.hasOwn(FIXED_TIER, name))
         return FIXED_TIER[name];
-    // Codex apply_patch: its `command` is the patch, read by its file headers, never by the shell rules. The
-    // generic name and path checks still run (worst of both); any other tool named apply_patch is generic.
-    if (ctx.source === "codex" && name === "apply_patch")
+    // Codex apply_patch (and OpenCode's patch, which the shim maps onto it): its `command` is the patch, read by its
+    // file headers, never by the shell rules. The generic name and path checks still run (worst of both); any other
+    // tool named apply_patch is generic.
+    if ((ctx.source === "codex" || ctx.source === "opencode") && name === "apply_patch")
         return worst(classifyApplyPatch(input, cwd, ctx.paths), generic(tool, input, cwd, false, ctx));
     return generic(tool, input, cwd, true, ctx);
 }
@@ -179,7 +180,7 @@ function argvRisk(argv, cwd, name, ctx) {
 }
 /**
  * The tool-name, command and path-field checks; `shellCommand` false skips the shell rules for `command`
- * (the Codex patch). For Muse and Codex, an unknown tool with neither a command nor a path field is unclear.
+ * (the Codex patch). For Muse, Codex and OpenCode, an unknown tool with neither a command nor a path field is unclear.
  */
 function generic(tool, input, cwd, shellCommand, ctx) {
     const name = tool.toLowerCase();
@@ -191,7 +192,7 @@ function generic(tool, input, cwd, shellCommand, ctx) {
     if (command !== null)
         result = worst(result, typeof command === "string" ? shellRisk(command, cwd, name, ctx) : argvRisk(command, cwd, name, ctx));
     const anyPath = PATH_FIELDS.some((f) => typeof input[f] === "string");
-    if (shellCommand && !known && command === null && !anyPath && (ctx.source === "muse" || ctx.source === "codex")) {
+    if (shellCommand && !known && command === null && !anyPath && (ctx.source === "muse" || ctx.source === "codex" || ctx.source === "opencode")) {
         result = worst(result, UNKNOWN_TOOL);
     }
     const knownField = WRITE_PATH_FIELD[name];
@@ -207,8 +208,8 @@ function generic(tool, input, cwd, shellCommand, ctx) {
     return result;
 }
 /**
- * `source` is the coding agent behind the call (only Codex has the apply_patch tool; Muse and Codex get the
- * unknown-tool rule; non-Claude shells on win32 get both dialects). `platform` is where the agent runs; paths are validated by its
+ * `source` is the coding agent behind the call (only Codex and OpenCode get the apply_patch reading; Muse, Codex and
+ * OpenCode get the unknown-tool rule; non-Claude shells on win32 get both dialects). `platform` is where the agent runs; paths are validated by its
  * rules (local-path.ts). `fs`: the lstat the path checks use (tests inject one; default the real one).
  */
 export function classifyRisk(tool, input, cwd, source, platform = process.platform, fs) {

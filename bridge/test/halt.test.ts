@@ -24,7 +24,7 @@ describe("the halt message and the enforcement table", () => {
     expect(HALT_MESSAGE).toBe("The user has halted all agents. Run nothing further and wait for their instruction.");
   });
   it("claims every-step only where a pre-tool hook is asked before each tool call and can refuse", () => {
-    expect(ENFORCEMENT).toEqual({ claude: "every-step", codex: "every-step", gemini: "every-step", muse: "requests-only" });
+    expect(ENFORCEMENT).toEqual({ claude: "every-step", codex: "every-step", gemini: "every-step", muse: "requests-only", opencode: "every-step" });
   });
   it("parses the client message strictly", () => {
     expect(parseClientMessage(JSON.stringify({ type: "halt", on: true }))).toEqual({ type: "halt", on: true });

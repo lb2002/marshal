@@ -1,4 +1,4 @@
-// `lotse hook --source claude|muse|codex|gemini`: the command hook those tools run. It forwards the hook JSON
+// `lotse hook --source claude|muse|codex|gemini|opencode`: the command hook those tools run. It forwards the hook JSON
 // to the bridge and, for an approval, prints the tool's own answer. Every failure prints nothing, so the tool
 // falls back to its own prompt (Muse: the no-decision deny). It never prints an allow the bridge did not give
 // (see adapters.ts).

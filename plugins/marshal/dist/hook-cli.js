@@ -23,7 +23,7 @@ export const DEFAULT_HTTP_PORT = 47820;
 export const DEADLINE_MS = 500;
 /** How long an approval hook waits for its stdin (a loaded machine can be slow to hand it over). */
 export const APPROVAL_STDIN_MS = 10_000;
-const SOURCES = new Set(["claude", "muse", "codex", "gemini"]);
+const SOURCES = new Set(["claude", "muse", "codex", "gemini", "opencode"]);
 /**
  * How long a Stop listener waits for a reply, from process start. Claude Code enforces the hook's timeout
  * (900 s) on asyncRewake hooks, so the listener ends a little earlier, on its own and silently.

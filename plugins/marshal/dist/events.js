@@ -1,4 +1,4 @@
-export const AGENT_SOURCES = new Set(["claude", "muse", "codex", "gemini"]);
+export const AGENT_SOURCES = new Set(["claude", "muse", "codex", "gemini", "opencode"]);
 import { homedir } from "node:os";
 import { ruleTitle } from "./title.js";
 const EVENT_KINDS = {
@@ -44,7 +44,7 @@ function compact(ev) {
 /** The hook shim marks the payloads of the other tools with `lotse_source`; anything else counts as Claude. */
 function sourceOf(o) {
     const s = o.lotse_source;
-    return s === "muse" || s === "codex" || s === "gemini" ? s : undefined;
+    return s === "muse" || s === "codex" || s === "gemini" || s === "opencode" ? s : undefined;
 }
 /** `homeDir` shortens absolute paths in the title (`~`, `…/name`). */
 export function normalizeHook(payload, now, homeDir = homedir()) {
