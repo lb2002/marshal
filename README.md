@@ -45,7 +45,7 @@ node dist/cli.js connect
 
 `connect` finds Claude Code, Codex CLI, Gemini CLI and Muse on this computer, lists exactly which file it changes for each, asks once, installs the hooks and starts the bridge. `node dist/cli.js disconnect` removes everything again. Use either the plugin or `connect` for Claude Code, not both. Details: [docs/setup.md](docs/setup.md).
 
-**Gemini CLI extension (experimental, not tested live).** `gemini extensions install https://github.com/lb2002/marshal` installs the same hooks as `connect` does for Gemini; start the bridge from a clone with `npm install --omit=dev` and then `node dist/cli.js start` in `plugins/marshal/`.
+**Gemini CLI extension (experimental, not tested live).** `gemini extensions install https://github.com/lb2002/marshal` installs the same hooks as `connect` does for Gemini; start the bridge from a clone with `node plugins/marshal/dist/cli.js start`.
 
 ## What is in this repository
 

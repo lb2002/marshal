@@ -1,5 +1,5 @@
 // Builds the installable packages from the bridge, so they always carry the same hooks as `lotse connect`:
-//   plugins/marshal/   Claude Code plugin (hooks, the connect skill, the built bridge)
+//   plugins/marshal/   Claude Code plugin (hooks, the connect skill, the built bridge, a vendored copy of ws)
 //   hooks/hooks.json   Gemini CLI extension hooks (gemini-extension.json sits at the repo root)
 // Usage, from the repo root, after `npm run build` in bridge/:  node scripts/build-plugins.mjs
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -25,26 +25,23 @@ const plugin = join(root, "plugins", "marshal");
 rmSync(join(plugin, "dist"), { recursive: true, force: true });
 cpSync(dist, join(plugin, "dist"), { recursive: true, filter: (src) => !/\.(d\.ts|map)$/.test(src) });
 
-// The bridge server needs `ws` (the hooks need nothing). Claude Code installs a plugin's dependencies only when
-// package.json and package-lock.json are both there and every version is exact, so pin it from the bridge's lock.
+// The bridge server needs `ws` (the hooks need nothing). It is vendored into the plugin, so installing the plugin
+// downloads nothing: no package-lock.json here, because with one Claude Code would run an npm install.
 const ws = lock.packages["node_modules/ws"];
+const wsDir = join(plugin, "node_modules", "ws");
+rmSync(join(plugin, "node_modules"), { recursive: true, force: true });
+rmSync(join(plugin, "package-lock.json"), { force: true });
+cpSync(join(root, "bridge", "node_modules", "ws"), wsDir, { recursive: true });
+if (JSON.parse(readFileSync(join(wsDir, "package.json"), "utf8")).version !== ws.version) throw new Error("bridge/node_modules/ws does not match the lock; run npm ci in bridge/");
 json(join(plugin, "package.json"), {
   name: "marshal-plugin",
   version: bridge.version,
   private: true,
+  license: "Apache-2.0",
   type: "module",
   engines: bridge.engines,
-  dependencies: { ws: ws.version },
-});
-json(join(plugin, "package-lock.json"), {
-  name: "marshal-plugin",
-  version: bridge.version,
-  lockfileVersion: 3,
-  requires: true,
-  packages: {
-    "": { name: "marshal-plugin", version: bridge.version, engines: bridge.engines, dependencies: { ws: ws.version } },
-    "node_modules/ws": ws,
-  },
+  bundleDependencies: ["ws"],
+  bundledVersions: { ws: ws.version },
 });
 
 // Same handlers as `connect` writes into ~/.claude/settings.json, minus the statusLine (plugins cannot set one).
@@ -55,4 +52,4 @@ json(join(plugin, "hooks", "hooks.json"), { hooks: buildHookSettings(claudeCmd, 
 const geminiCmd = 'node "${extensionPath}/plugins/marshal/dist/cli.js"';
 json(join(root, "hooks", "hooks.json"), buildToolHooks("gemini", geminiCmd));
 
-console.log("written: plugins/marshal (dist, package.json, package-lock.json, hooks/hooks.json), hooks/hooks.json");
+console.log("written: plugins/marshal (dist, node_modules/ws, package.json, hooks/hooks.json), hooks/hooks.json");

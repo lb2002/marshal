@@ -13,8 +13,7 @@ The plugin root is two folders above this skill's base directory (`<base>/../..`
 its absolute path with forward slashes.
 
 1. **Node.js.** Run `node --version`. Marshal needs 22.12 or newer. If it is older or missing, tell the user and stop.
-2. **Dependency.** If `ROOT/node_modules/ws` does not exist, run `npm install --omit=dev --ignore-scripts` in `ROOT`
-   (it installs one package, `ws`, pinned in `ROOT/package-lock.json`).
+2. **Dependency.** The plugin bundles its one dependency (`ws`) in `ROOT/node_modules`; nothing needs to be installed.
 3. **No double hooks.** If `~/.claude/settings.json` contains hook commands with `cli.js" hook --source claude`, Marshal
    was also set up with `lotse connect` earlier, and every event would reach the bridge twice. Tell the user to run
    `node "<that cli.js>" disconnect --tool claude` once, or to disable this plugin instead. Do not edit the file yourself.
