@@ -240,7 +240,8 @@ const AGENT_DIRS = new Set([".claude", ".codex", ".gemini", ".muse", ".opencode"
  */
 const SHORT_NAME = /~\d+(?:\.[^.]*)?$/i;
 /**
- * `.claude/**` (and the other agents' folders, `.config/muse/**`, Marshal's `.lotse/**`), `.git/hooks/**`,
+ * `.claude/**` (and the other agents' folders, `.config/muse/**`, `.config/opencode/**`, `opencode.json(c)`, Marshal's
+ * `.lotse/**`), `.git/hooks/**`,
  * `.git/config` below the project root, and any short-name segment. Windows name rules applied to every segment:
  * case folded, an alternate data stream suffix (`:name`) and trailing dots and spaces dropped.
  */
@@ -251,7 +252,10 @@ export function isProtectedSegs(segs) {
             return true;
         if (AGENT_DIRS.has(s[i]))
             return true;
-        if (s[i] === ".config" && s[i + 1] === "muse")
+        if (s[i] === ".config" && (s[i + 1] === "muse" || s[i + 1] === "opencode"))
+            return true;
+        // OpenCode's project config can name plugins to load: a settings file wherever it sits.
+        if (i === s.length - 1 && (s[i] === "opencode.json" || s[i] === "opencode.jsonc"))
             return true;
         if (s[i] === ".git" && (s[i + 1] === "hooks" || (s[i + 1] === "config" && i + 2 === s.length)))
             return true;

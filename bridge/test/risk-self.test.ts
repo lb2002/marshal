@@ -137,7 +137,7 @@ describe("Marshal's own CLI is destructive (two hands)", () => {
 
 describe("the agents' settings folders and ~/.lotse are settings changes, also from the home folder", () => {
   const HOME = "C:/Users/a";
-  const paths = [".lotse/halt", ".lotse/token", ".claude/settings.json", ".codex/hooks.json", ".gemini/settings.json", ".muse/hooks.json", ".config/muse/settings.json", ".lotse/muse-plugin/.muse-plugin/plugin.json"];
+  const paths = [".lotse/halt", ".lotse/token", ".claude/settings.json", ".codex/hooks.json", ".gemini/settings.json", ".muse/hooks.json", ".config/muse/settings.json", ".lotse/muse-plugin/.muse-plugin/plugin.json", ".config/opencode/plugins/marshal/index.js", ".config/opencode/opencode.json", ".opencode/plugins/x/index.js", "proj/opencode.json", "proj/opencode.jsonc"];
   for (const p of paths) {
     it(p, () => {
       for (const tool of ["Write", "Edit"]) {
@@ -149,4 +149,16 @@ describe("the agents' settings folders and ~/.lotse are settings changes, also f
       expect(classifyRisk("PowerShell", { command: `Remove-Item ${HOME}/${p}` }, HOME, "claude", "win32").risk).toBe("destructive");
     });
   }
+});
+
+describe("OpenCode's project config is a settings file inside the project too", () => {
+  for (const p of ["opencode.json", "opencode.jsonc", "sub/opencode.json", "OPENCODE.JSON", ".config/opencode/plugins/a/index.js"]) {
+    it(p, () => {
+      for (const tool of ["Write", "Edit"]) expect(classifyRisk(tool, { file_path: `${CWD}/${p}` }, CWD, "opencode", "win32").risk).toBe("destructive");
+      expect(classifyRisk("Bash", { command: `echo x > ${p}` }, CWD, "claude", "linux").risk).toBe("destructive");
+    });
+  }
+  it("a file that only contains the name is not", () => {
+    expect(classifyRisk("Write", { file_path: `${CWD}/opencode.json.md` }, CWD, "claude", "win32").risk).not.toBe("destructive");
+  });
 });
