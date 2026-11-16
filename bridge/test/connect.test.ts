@@ -8,7 +8,7 @@ import { connectBanner, isAllMode, museStopCleanup, parseConnectAllArgs, parseCo
 
 describe("parseConnectArgs", () => {
   it("needs --project; defaults: claude, command hooks, not temporary, budget 15, explain as start", () => {
-    expect(parseConnectArgs(["--project", "p"])).toEqual({ project: "p", tool: "claude", transport: "command", temporary: false, budget: 15, noQr: false });
+    expect(parseConnectArgs(["--project", "p"])).toEqual({ project: "p", tool: "claude", transport: "command", temporary: false, budget: 15, noQr: false, noBrowser: false });
     expect(() => parseConnectArgs([])).toThrow(UsageError);
   });
   it("takes --tool, --transport (Claude only), --temporary, --budget and --explain", () => {
@@ -20,6 +20,11 @@ describe("parseConnectArgs", () => {
     expect(parseConnectArgs(["--project", "p", "--no-qr"])).toMatchObject({ noQr: true });
     expect(parseConnectAllArgs(["--all", "--no-qr"])).toMatchObject({ noQr: true });
     expect(() => parseConnectArgs(["--project", "p", "--no-qr", "x"])).toThrow(UsageError);
+  });
+  it("takes --no-browser in both modes", () => {
+    expect(parseConnectArgs(["--project", "p", "--no-browser"])).toMatchObject({ noBrowser: true });
+    expect(parseConnectAllArgs(["--all", "--no-browser"])).toMatchObject({ noBrowser: true });
+    expect(parseConnectAllArgs([])).toMatchObject({ noBrowser: false });
   });
   it.each([
     [["--project", "p", "--tool", "cursor"]],
@@ -47,11 +52,11 @@ describe("connect --all / disconnect --all arguments", () => {
     expect(parseConnectAllArgs(["--yes"])).toMatchObject({ yes: true, tools: ["claude", "muse", "codex", "gemini"] });
   });
   it("defaults to all four tools, asks, budget 15", () => {
-    expect(parseConnectAllArgs(["--all"])).toEqual({ tools: ["claude", "muse", "codex", "gemini"], explicit: false, yes: false, keepMuse: false, budget: 15, noQr: false });
+    expect(parseConnectAllArgs(["--all"])).toEqual({ tools: ["claude", "muse", "codex", "gemini"], explicit: false, yes: false, keepMuse: false, budget: 15, noQr: false, noBrowser: false });
     expect(parseConnectAllArgs(["--all", "--tool", "all"])).toMatchObject({ explicit: false });
   });
   it("takes --tool <one>, --yes, --budget and --explain", () => {
-    expect(parseConnectAllArgs(["--all", "--tool", "muse", "--yes", "--budget", "4", "--explain", "off"])).toEqual({ tools: ["muse"], explicit: true, yes: true, keepMuse: false, budget: 4, explain: "off", noQr: false });
+    expect(parseConnectAllArgs(["--all", "--tool", "muse", "--yes", "--budget", "4", "--explain", "off"])).toEqual({ tools: ["muse"], explicit: true, yes: true, keepMuse: false, budget: 4, explain: "off", noQr: false, noBrowser: false });
     expect(parseConnectAllArgs(["--all", "--keep-muse"])).toMatchObject({ keepMuse: true });
   });
   it.each([

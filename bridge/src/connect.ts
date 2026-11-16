@@ -23,6 +23,8 @@ export interface ConnectArgs {
   explain?: string;
   /** `--no-qr`: no QR code in the terminal. */
   noQr: boolean;
+  /** `--no-browser`: do not open the status page in the browser. */
+  noBrowser: boolean;
   /** `--host <ipv4>`: the address in the QR code (a private IPv4 address). */
   host?: string;
 }
@@ -39,7 +41,7 @@ export function hostFlag(v: string | true | undefined): string | undefined {
 }
 
 export function parseConnectArgs(args: string[]): ConnectArgs {
-  const { pos, flags } = parseArgs(args, ["project", "tool", "transport", "budget", "explain", "host"], ["temporary", "no-qr"]);
+  const { pos, flags } = parseArgs(args, ["project", "tool", "transport", "budget", "explain", "host"], ["temporary", "no-qr", "no-browser"]);
   if (pos.length > 0) throw new UsageError(`unexpected argument ${pos[0]}`);
   if (typeof flags.project !== "string") throw new UsageError("connect needs --project <dir>");
   const tool = flags.tool ?? "claude";
@@ -49,7 +51,7 @@ export function parseConnectArgs(args: string[]): ConnectArgs {
   const transport = flags.transport ?? "command";
   if (transport !== "command" && transport !== "http") throw new UsageError("--transport must be command or http");
   if (transport === "http" && tool !== "claude") throw new UsageError("--transport http is only for --tool claude");
-  const out: ConnectArgs = { project: flags.project, tool: tool as InstallTool, transport, temporary: flags.temporary === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true };
+  const out: ConnectArgs = { project: flags.project, tool: tool as InstallTool, transport, temporary: flags.temporary === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true, noBrowser: flags["no-browser"] === true };
   if (flags.explain !== undefined) out.explain = flags.explain as string;
   const host = hostFlag(flags.host);
   if (host !== undefined) out.host = host;
@@ -71,6 +73,8 @@ export interface ConnectAllArgs extends GlobalToolArgs {
   explain?: string;
   /** `--no-qr`: no QR code in the terminal. */
   noQr: boolean;
+  /** `--no-browser`: do not open the status page in the browser. */
+  noBrowser: boolean;
   /** `--host <ipv4>`: the address in the QR code (a private IPv4 address). */
   host?: string;
 }
@@ -87,9 +91,9 @@ function globalTools(tool: string | true | undefined): GlobalToolArgs {
 }
 
 export function parseConnectAllArgs(args: string[]): ConnectAllArgs {
-  const { pos, flags } = parseArgs(args, ["tool", "budget", "explain", "host"], ["all", "yes", "keep-muse", "no-qr"]);
+  const { pos, flags } = parseArgs(args, ["tool", "budget", "explain", "host"], ["all", "yes", "keep-muse", "no-qr", "no-browser"]);
   if (pos.length > 0) throw new UsageError(`unexpected argument ${pos[0]}`);
-  const out: ConnectAllArgs = { ...globalTools(flags.tool), yes: flags.yes === true, keepMuse: flags["keep-muse"] === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true };
+  const out: ConnectAllArgs = { ...globalTools(flags.tool), yes: flags.yes === true, keepMuse: flags["keep-muse"] === true, budget: parseBudget(flags.budget), noQr: flags["no-qr"] === true, noBrowser: flags["no-browser"] === true };
   if (flags.explain !== undefined) out.explain = flags.explain as string;
   const host = hostFlag(flags.host);
   if (host !== undefined) out.host = host;

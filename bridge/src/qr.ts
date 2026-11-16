@@ -333,6 +333,25 @@ export const QUIET_ZONE = 4;
 export const renderedWidth = (q: QrCode, quiet = QUIET_ZONE) => q.size + 2 * quiet;
 
 /**
+ * The code as SVG markup for the local status page (ui-page.ts): black modules on a white square that includes the
+ * quiet zone, one path of horizontal runs, one unit per module. Only numbers go into it, never the payload text.
+ */
+export function renderQrSvg(q: QrCode, quiet = QUIET_ZONE): string {
+  const n = q.size + 2 * quiet;
+  let d = "";
+  for (let r = 0; r < q.size; r++) {
+    for (let c = 0; c < q.size; c++) {
+      if (!q.modules[r][c]) continue;
+      let len = 1;
+      while (c + len < q.size && q.modules[r][c + len]) len++;
+      d += `M${c + quiet} ${r + quiet}h${len}v1h-${len}z`;
+      c += len - 1;
+    }
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges"><rect width="${n}" height="${n}" fill="#fff"/><path d="${d}" fill="#000"/></svg>`;
+}
+
+/**
  * The code as terminal lines: one upper half block per two modules (top module = foreground, bottom module =
  * background), dark modules black and light ones bright white, with explicit colours on every cell so it reads
  * the same on dark and light terminal themes. Each line ends with a colour reset.
