@@ -1,15 +1,47 @@
 {
-  "name": "lotse-bridge",
-  "version": "0.1.0",
-  "private": true,
+  "name": "marshal-agents",
+  "version": "0.14.1",
+  "description": "Marshal: supervise Claude Code, Codex, Gemini CLI and Muse from a Meta Quest 3 and approve their requests with your hands. This is the PC bridge; run `npx marshal-agents` to set it up.",
+  "keywords": [
+    "claude-code",
+    "codex",
+    "gemini-cli",
+    "muse",
+    "coding-agents",
+    "hooks",
+    "permissions",
+    "meta-quest",
+    "mixed-reality"
+  ],
+  "homepage": "https://github.com/lb2002/marshal#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lb2002/marshal.git",
+    "directory": "bridge"
+  },
+  "bugs": "https://github.com/lb2002/marshal/issues",
+  "license": "Apache-2.0",
+  "author": "Linus Baumberger",
   "type": "module",
+  "bin": {
+    "marshal-agents": "dist/cli.js",
+    "marshal": "dist/cli.js",
+    "lotse": "dist/cli.js"
+  },
+  "files": [
+    "dist/**/*.js",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
   "engines": {
     "node": ">=22.12"
   },
   "scripts": {
     "test": "vitest run",
     "build": "tsc -p .",
-    "start": "node dist/cli.js start"
+    "start": "node dist/cli.js start",
+    "prepack": "npm run build"
   },
   "dependencies": {
     "ws": "^8.22.2"
@@ -19,6 +51,5 @@
     "@types/ws": "^8.18.2",
     "typescript": "^7.0.2",
     "vitest": "^5.1.0"
-  },
-  "license": "Apache-2.0"
+  }
 }

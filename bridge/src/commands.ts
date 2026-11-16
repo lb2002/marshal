@@ -2,6 +2,7 @@
 import { randomBytes, randomInt } from "node:crypto";
 import { existsSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
+import { stableCliFile } from "./runtime-home.js";
 import { dirname, join, resolve } from "node:path";
 import { createInterface } from "node:readline";
 import { CODE_TTL_MS, startServer, type ServerHandle } from "./server.js";
@@ -658,8 +659,10 @@ async function cmdUninstallHooks(args: string[]): Promise<number> {
 
 /** Every command except `hook` (see hook-cli.ts). `entry` is the path of cli.js, for the hook commands. */
 export async function main(argv: string[], entry: string): Promise<void> {
-  cliFile = entry;
-  const [cmd, ...rest] = argv;
+  // `npx marshal-agents` with no command is the one-command setup.
+  const [cmd, ...rest] = argv.length === 0 ? ["connect"] : argv;
+  // Hooks call the CLI by path: never point them into npx's cache (runtime-home.ts).
+  cliFile = cmd === "connect" || cmd === "disconnect" || cmd === "install-hooks" || cmd === "uninstall-hooks" ? stableCliFile(entry, homedir()) : entry;
   try {
     if (cmd === "start") return await cmdStart(rest);
     if (cmd === "connect") {
